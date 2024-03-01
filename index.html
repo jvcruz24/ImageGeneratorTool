@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas id="viewport" width="800" height="600"></canvas>
+
+    <div>
+        <button type='button' id='downloadButton' onclick='downloadCanvas()'> DOWNLOAD IMAGE</button>
+    </div>
+
+    <script>
+        var canvas = document.getElementById('viewport'),
+            context = canvas.getContext('2d');
+
+        // Enable image smoothing
+        context.imageSmoothingEnabled = true;
+
+        // Set image smoothing quality to high
+        context.imageSmoothingQuality = 'high';
+
+        make_base();
+
+        function make_base() {
+            base_image = new Image();
+            base_image.src = 'https://creativepreview.wideout.com/DevPool/Training/JCruz/Autobots/template.jpg';  // Use the proxy server
+            base_image.setAttribute('crossorigin', 'anonymous');
+            base_image.onload = function () {
+                // Clear the canvas before drawing
+                context.clearRect(0, 0, canvas.width, canvas.height);
+
+                // Draw the image stretched to fit the entire canvas
+                context.drawImage(base_image, 0, 0, canvas.width, canvas.height);
+
+                // Add a button or trigger to download the canvas as an image
+                var downloadButton = document.getElementById('downloadButton');
+                downloadButton.addEventListener('click', function () {
+                    downloadCanvas();
+                });
+            };
+        }
+
+        function downloadCanvas() {
+            // Get the data URL of the canvas content
+            var dataUrl = canvas.toDataURL('image/png');
+
+            // Create a link element
+            var a = document.createElement('a');
+
+            // Set the href attribute to the data URL
+            a.href = dataUrl;
+
+            // Set the download attribute with the desired filename
+            a.download = 'canvas_image.png';
+
+            // Append the link to the document and trigger a click event
+            document.body.appendChild(a);
+            a.click();
+
+            // Remove the link from the document
+            document.body.removeChild(a);
+        }
+    </script>
+</body>
+
+</html>
