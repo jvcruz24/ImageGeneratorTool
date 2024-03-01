@@ -61,16 +61,6 @@
                 context.textAlign = "center";
                 context.fillText("JON", 840, 640);
 
-                context.font = "800 22px Montserrat, sans-serif";
-                context.fillStyle = "#ffffff";
-                context.textAlign = "center";
-                context.fillText("JON", 50, 1000);
-
-                context.font = "500 22px Montserrat, sans-serif";
-                context.fillStyle = "#ffffff";
-                context.textAlign = "center";
-                context.fillText("Creative Developer", 118, 1030);
-
                 base_image2 = new Image();
                 base_image2.src = 'https://raw.githubusercontent.com/jvcruz24/ImageGeneratorTool/main/00001.png';  // Use the proxy server
                 base_image2.setAttribute('crossorigin', 'anonymous');
@@ -78,7 +68,19 @@
                 base_image2.onload = function () {
                     // Draw the image stretched to fit the entire canvas
                     context.drawImage(base_image2, -250, 0, canvas.width, canvas.height);
+
+                    context.font = "800 22px Montserrat, sans-serif";
+                    context.fillStyle = "#ffffff";
+                    context.textAlign = "center";
+                    context.fillText("JON", 50, 1000);
+
+                    context.font = "500 22px Montserrat, sans-serif";
+                    context.fillStyle = "#ffffff";
+                    context.textAlign = "center";
+                    context.fillText("Creative Developer", 118, 1030);
                 }
+
+
 
             };
         }
