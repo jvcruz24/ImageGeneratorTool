@@ -5,11 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <title>Image Generator Tool</title>
 </head>
 
 <body>
-    <canvas id="viewport" width="800" height="600"></canvas>
+    <canvas id="viewport" width="1080" height="1080">
+    </canvas>
 
     <div>
         <button type='button' id='downloadButton' onclick='downloadCanvas()'> DOWNLOAD IMAGE</button>
@@ -25,11 +30,12 @@
         // Set image smoothing quality to high
         context.imageSmoothingQuality = 'high';
 
+
         make_base();
 
         function make_base() {
             base_image = new Image();
-            base_image.src = 'https://creativepreview.wideout.com/DevPool/Training/JCruz/Autobots/template.jpg';  // Use the proxy server
+            base_image.src = 'https://raw.githubusercontent.com/jvcruz24/ImageGeneratorTool/main/template.jpg';  // Use the proxy server
             base_image.setAttribute('crossorigin', 'anonymous');
             base_image.onload = function () {
                 // Clear the canvas before drawing
@@ -43,6 +49,38 @@
                 downloadButton.addEventListener('click', function () {
                     downloadCanvas();
                 });
+
+                context.font = "700 76px Montserrat, sans-serif";
+                context.fillStyle = "#042f45";
+                context.textAlign = "center";
+                context.fillText("JON", 850, 270);
+
+                context.font = "800 95px Montserrat, sans-serif";
+                context.fillStyle = "#e02c4a";
+                context.textAlign = "center";
+                context.fillText("JON", 840, 640);
+
+                context.font = "800 22px Montserrat, sans-serif";
+                context.fillStyle = "#ffffff";
+                context.textAlign = "center";
+                context.fillText("JON", 50, 1000);
+
+                context.font = "500 22px Montserrat, sans-serif";
+                context.fillStyle = "#ffffff";
+                context.textAlign = "center";
+                context.fillText("Creative Developer", 118, 1030);
+
+                base_image2 = new Image();
+                base_image2.src = 'https://raw.githubusercontent.com/jvcruz24/ImageGeneratorTool/main/00001.jpg';  // Use the proxy server
+                base_image2.setAttribute('crossorigin', 'anonymous');
+                base_image2.onload = function () {
+                    // Clear the canvas before drawing
+                    context.clearRect(0, 0, canvas.width, canvas.height);
+
+                    // Draw the image stretched to fit the entire canvas
+                    context.drawImage(base_image, 0, 0, canvas.width, canvas.height);
+                }
+
             };
         }
 
