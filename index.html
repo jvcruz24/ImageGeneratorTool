@@ -22,28 +22,35 @@
                 <label for="nicknameInput">Enter Nickname</label>
             </div>
             <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="fullNameInput" placeholder="Enter fullName" maxlength="40">
+                <label for="fullNameInput">Enter FullName</label>
+            </div>
+            <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="positionInput" placeholder="Enter position" maxlength="40">
                 <label for="positionInput">Enter Position</label>
             </div>
         </div>
 
-        <div class="dropzone mb-3" id="dropzone">
+        <div class="dropzone mb-3" id="dropzone" onclick='triggerFileInput()'>
             <span>Drag & Drop image here or click to upload</span>
+            <input type="file" id="fileInput" style="display: none;" onchange="handleFileSelect()">
         </div>
         <!-- Image preview will be displayed here -->
         <!-- <div id="preview-container" class='preview-container'> -->
         <!-- </div> -->
-        <div class="image-container" id="imageContainer">
+        <div class="image-container mb-3" id="imageContainer">
             <img src="https://raw.githubusercontent.com/jvcruz24/ImageGeneratorTool/main/template.jpg" alt="template"
                 class="template" crossorigin="anonymous">
-            <img src="https://raw.githubusercontent.com/jvcruz24/ImageGeneratorTool/main/transparent.png" alt=" "
-                class="profile" id='profile' crossorigin="anonymous">
+            <div class='image-profile-container'>
+                <img src="https://raw.githubusercontent.com/jvcruz24/ImageGeneratorTool/main/transparent.png" alt=" "
+                    class="image-profile img-fluid" id='profile' crossorigin="anonymous">
+            </div>
             <p id="nickname" class="input-name nickname shifted-text"></p>
             <p id="nickname2" class="input-name nickname2 shifted-text"></p>
             <p id="nickname3" class="input-name nickname3"></p>
             <p class="position" id='position'></p>
         </div>
-        <div>
+        <div class='d-flex justify-content-center align-items-center p-3'>
             <button class="btn btn-success" id="downloadButton">Generate Image</button>
         </div>
     </div>
@@ -54,6 +61,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const nicknameInput = document.getElementById('nicknameInput');
+            const fullNameInput = document.getElementById('fullNameInput');
             const positionInput = document.getElementById('positionInput');
             const nickname = document.getElementById('nickname');
             const nickname2 = document.getElementById('nickname2');
@@ -63,16 +71,18 @@
             const downloadButton = document.getElementById('downloadButton');
 
             nicknameInput.addEventListener('input', onInputChange);
+            fullNameInput.addEventListener('input', onInputChange);
             positionInput.addEventListener('input', onInputChange);
             downloadButton.addEventListener('click', downloadCanvas);
 
             function onInputChange() {
                 const fillNickname = nicknameInput.value.toUpperCase();
                 const fillPosition = positionInput.value.toUpperCase();
+                const fillFullname = fullNameInput.value.toUpperCase();
 
                 nickname.textContent = fillNickname;
                 nickname2.textContent = fillNickname;
-                nickname3.textContent = fillNickname;
+                nickname3.textContent = fillFullname;
                 position.textContent = fillPosition;
             }
 
@@ -102,9 +112,9 @@
     </script>
 
     <script>
-        const profile = document.getElementById('profile')
+        const profile = document.getElementById('profile');
         const dropzone = document.getElementById('dropzone');
-        // const previewContainer = document.getElementById('preview-container');
+        const fileInput = document.getElementById('fileInput');
 
         dropzone.addEventListener('dragover', (e) => {
             e.preventDefault();
@@ -118,8 +128,19 @@
         dropzone.addEventListener('drop', (e) => {
             e.preventDefault();
             dropzone.classList.remove('highlight');
+            handleDroppedFiles(e.dataTransfer.files);
+        });
 
-            const files = e.dataTransfer.files;
+        function triggerFileInput() {
+            fileInput.click();
+        }
+
+        function handleFileSelect() {
+            const files = fileInput.files;
+            handleDroppedFiles(files);
+        }
+
+        function handleDroppedFiles(files) {
             if (files.length) {
                 const file = files[0];
 
@@ -127,24 +148,63 @@
                     const reader = new FileReader();
 
                     reader.onload = () => {
-                        // const imgElement = document.createElement('img');
-                        // imgElement.src = reader.result;
-                        // imgElement.classList.add('preview');
-                        // previewContainer.innerHTML = '';
-                        // previewContainer.appendChild(imgElement);
-
                         profile.src = reader.result;
                     };
+
                     reader.readAsDataURL(file);
-
-
-
                 } else {
-                    alert('Please drop an image file');
+                    alert('Please choose an image file');
                 }
             }
-        });
+        }
     </script>
+
+    <script>
+        // Make the DIV element draggable:
+        dragElement(document.getElementById("profile"));
+
+        function dragElement(elmnt) {
+            var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+            if (document.getElementById(elmnt.id + "header")) {
+                // if present, the header is where you move the DIV from:
+                document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+            } else {
+                // otherwise, move the DIV from anywhere inside the DIV:
+                elmnt.onmousedown = dragMouseDown;
+            }
+
+            function dragMouseDown(e) {
+                e = e || window.event;
+                e.preventDefault();
+                // get the mouse cursor position at startup:
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                document.onmouseup = closeDragElement;
+                // call a function whenever the cursor moves:
+                document.onmousemove = elementDrag;
+            }
+
+            function elementDrag(e) {
+                e = e || window.event;
+                e.preventDefault();
+                // calculate the new cursor position:
+                pos1 = pos3 - e.clientX;
+                pos2 = pos4 - e.clientY;
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                // set the element's new position:
+                elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+                elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+            }
+
+            function closeDragElement() {
+                // stop moving when mouse button is released:
+                document.onmouseup = null;
+                document.onmousemove = null;
+            }
+        }
+    </script>
+
 </body>
 
 </html>

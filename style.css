@@ -30,6 +30,14 @@ img {
     overflow: hidden;
 }
 
+.image-profile-container {
+    position: absolute;
+    left: 0;
+    width: 300px;
+    height: 540px;
+    overflow: hidden;
+}
+
 .nickname {
     /* height: 100px; */
     font-size: 38px;
@@ -66,13 +74,6 @@ img {
     color: #ffffff;
     top: 495px;
     left: 25px;
-}
-
-.profile {
-    position: absolute;
-    left: 0;
-    width: 300px;
-    height: 540px;
 }
 
 .dropzone {
