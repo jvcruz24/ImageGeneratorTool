@@ -22,6 +22,11 @@ img {
     background-size: 540px 540px;
 }
 
+.container {
+    width: 100vw;
+    height: 100vh;
+}
+
 .image-container {
     width: 540px;
     height: 540px;
@@ -32,6 +37,7 @@ img {
 
 .image-profile-container {
     position: absolute;
+    top: 0;
     left: 0;
     width: 300px;
     height: 540px;
@@ -74,12 +80,28 @@ img {
     color: #ffffff;
     top: 495px;
     left: 25px;
+    width: 250px;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
+
+.textarea-position {
+    height: 85px !important;
+    resize: none;
+}
+
+.position-container {
+    position: absolute;
+
+    width: 200px;
+    height: 20px;
+
 }
 
 .dropzone {
     border: 2px dashed #ccc;
     border-radius: 10px;
-    padding: 20px;
+    padding: 60px 20px;
     text-align: center;
     cursor: pointer;
 }
@@ -99,4 +121,151 @@ img {
     max-width: 540px;
     max-height: 540px;
     margin-top: 20px;
+}
+
+.img-fluid {
+    max-width: 200% !important;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.resizable-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    cursor: grab;
+}
+
+.resizable-image:active {
+    cursor: grabbing;
+}
+
+#image-block {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+}
+
+.downloadButton {
+    width: 250px !important;
+    height: 50px;
+    border-radius: 15px !important;
+}
+
+
+input[type=text],
+textarea {
+    border-radius: 15px !important;
+    opacity: 0.8;
+}
+
+
+.btn-outline-secondary {
+    font-weight: 600 !important;
+    border-radius: 50px !important;
+    border-color: #0000002f;
+    font-size: 14px;
+}
+
+.btn-check:checked+.btn {
+    border-color: #ff414d !important;
+    background-color: #ff414d !important;
+}
+
+button[type="submit"] {
+    background: #ff414d;
+    border-radius: 50px;
+    box-shadow: #ff414d 0 10px 20px -10px;
+    font-family: "Montserrat", sans-serif;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 11px 18px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    border: 0;
+}
+
+button[type="submit"]:hover {
+    background: #b12b34;
+}
+
+.image-size {
+    border: 1px solid #ced4da;
+    border-radius: 15px;
+    padding: 1rem 0.75rem;
+}
+
+#decreaseSizeBtn,
+#increaseSizeBtn {
+    width: 35px !important;
+    height: 35px !important;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+path {
+    fill: white;
+}
+
+
+.copy1 {
+    font-weight: 600;
+    font-size: 38px;
+    color: #042f45;
+    position: absolute;
+    left: 362px;
+    top: 48px;
+    letter-spacing: -0.6px;
+}
+
+.copy2-container {
+    /* background-color: green; */
+    width: 196px;
+    height: 30px;
+    position: absolute;
+    top: 144px;
+    left: 323px;
+}
+
+.copy2 {
+    font-size: 21px;
+    font-weight: 600;
+    color: #e02c4a;
+    text-align: center;
+    width: 100%;
+}
+
+.wideoutlogo {
+    width: 169.5px;
+    height: 22px;
+    top: 177px;
+    left: 346px;
+}
+
+.custom-btn {
+    width: 180px;
+    height: 29px;
+    background-image: linear-gradient(360deg, #19a4b6, #2cd9ef);
+    border: none;
+    position: absolute;
+    left: 330px;
+    top: 355px;
+    border-radius: 36px;
+    opacity: 1;
+}
+
+.custom-btn-text {
+    font-weight: 600;
+    font-size: 16px;
+    color: #FFFFFF;
 }

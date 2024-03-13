@@ -10,56 +10,93 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 
 <body>
-    <div class="container d-flex flex-column justify-content-center">
-        <div>
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="nicknameInput" placeholder="Enter nickname" maxlength="6">
-                <label for="nicknameInput">Enter Nickname</label>
-            </div>
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="fullNameInput" placeholder="Enter fullName" maxlength="50">
-                <label for="fullNameInput">Enter FullName</label>
-            </div>
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="positionInput" placeholder="Enter position" maxlength="50">
-                <label for="positionInput">Enter Position</label>
-            </div>
-        </div>
+    <div class='container d-flex flex-column justify-content-center align-items-center'>
+        <div class="d-flex justify-content-center align-items-center gap-5">
+            <div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="nicknameInput" placeholder="Enter nickname"
+                        maxlength="6">
+                    <label for="nicknameInput">Enter Nickname</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="fullNameInput" placeholder="Enter fullName"
+                        maxlength="50">
+                    <label for="fullNameInput">Enter Fullname</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <textarea type="text" class="form-control textarea-position" id="positionInput"
+                        placeholder="Enter position" maxlength="50" rows='2' onchange='textAreaChange()'></textarea>
+                    <label for="positionInput">Enter Position</label>
+                </div>
+                <div class="dropzone mb-3" id="dropzone" onclick='triggerFileInput()'>
+                    <span>Drag & Drop image here or click to upload</span>
+                    <input type="file" id="fileInput" style="display: none;" onchange="handleFileSelect()">
+                </div>
+                <div class='image-size d-flex justify-content-between align-items-center'>
+                    <div>
 
-        <div class="dropzone mb-3" id="dropzone" onclick='triggerFileInput()'>
-            <span>Drag & Drop image here or click to upload</span>
-            <input type="file" id="fileInput" style="display: none;" onchange="handleFileSelect()">
-        </div>
-        <!-- Image preview will be displayed here -->
-        <!-- <div id="preview-container" class='preview-container'> -->
-        <!-- </div> -->
-        <div class="image-container mb-3" id="imageContainer">
-            <img src="https://raw.githubusercontent.com/jvcruz24/ImageGeneratorTool/main/template.jpg" alt="template"
-                class="template" crossorigin="anonymous">
-            <div class='image-profile-container'>
-                <img src="https://raw.githubusercontent.com/jvcruz24/ImageGeneratorTool/main/transparent.png" alt=" "
-                    class="image-profile img-fluid" id='profile' crossorigin="anonymous">
+                        <label for="">Image Size : </label>
+                        <span id="currentSize">100%</span>
+                    </div>
+                    <div class='d-flex gap-2'>
+                        <button class='btn btn-primary rounded-circle' id="decreaseSizeBtn"><svg
+                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                <path
+                                    d="M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z" />
+                            </svg></button>
+                        <button class='btn btn-primary rounded-circle' id="increaseSizeBtn"><svg
+                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                <path
+                                    d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
+                            </svg></button>
+                    </div>
+                </div>
             </div>
-            <p id="nickname" class="input-name nickname shifted-text"></p>
-            <p id="nickname2" class="input-name nickname2 shifted-text"></p>
-            <p id="nickname3" class="input-name nickname3"></p>
-            <p class="position" id='position'></p>
+
+            <div class="image-container mb-3" id="imageContainer">
+                <img src="https://raw.githubusercontent.com/jvcruz24/ImageGeneratorTool/main/template.jpg"
+                    alt="template" class="template" crossorigin="anonymous">
+                <div class='image-profile-container'>
+                    <div>
+                        <img src="https://raw.githubusercontent.com/jvcruz24/ImageGeneratorTool/main/transparent.png"
+                            alt=" " class="image-profile img-fluid resizable-image" id='profile'
+                            crossorigin="anonymous">
+                    </div>
+                </div>
+                <p class='copy1 shifted-text'>This is</p>
+                <div class='copy2-container shifted-text'>
+                    <p class='copy2'><span>She</span> is a top talent</p>
+                </div>
+                <img src="wideoutlogo.png" alt="wideoutlogo" class='wideoutlogo'>
+                <p id="nickname" class="input-name nickname shifted-text"></p>
+                <p id="nickname2" class="input-name nickname2 shifted-text"></p>
+                <p id="nickname3" class="input-name nickname3"></p>
+                <button class='custom-btn'>
+                    <span class='custom-btn-text'>Ask us how</span>
+                </button>
+                <div class='position-container'>
+                </div>
+                <p class="position" id='position'></p>
+            </div>
         </div>
-        <div class='d-flex justify-content-center align-items-center p-3'>
-            <button class="btn btn-success" id="downloadButton">Generate Image</button>
+        <div class='row d-flex justify-content-center align-items-center p-3'>
+            <button type='submit' class="btn btn-primary downloadButton" id="downloadButton">Generate Image</button>
         </div>
     </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
         integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+
             const nicknameInput = document.getElementById('nicknameInput');
             const fullNameInput = document.getElementById('fullNameInput');
             const positionInput = document.getElementById('positionInput');
@@ -69,12 +106,21 @@
             const position = document.getElementById('position');
             const imageContainer = document.getElementById('imageContainer');
             const downloadButton = document.getElementById('downloadButton');
+            const decreaseSizeBtn = document.getElementById('decreaseSizeBtn');
+            const increaseSizeBtn = document.getElementById('increaseSizeBtn');
+            const currentSizeSpan = document.getElementById('currentSize');
+            let currentSize = 100; // Initial size percentage
+
+
 
             nicknameInput.addEventListener('input', onInputChange);
             fullNameInput.addEventListener('input', onInputChange);
             positionInput.addEventListener('input', onInputChange);
             downloadButton.addEventListener('click', downloadCanvas);
+            decreaseSizeBtn.addEventListener('click', decreaseImageSize);
+            increaseSizeBtn.addEventListener('click', increaseImageSize);
 
+            // ONCHANGE INPUT
             function onInputChange() {
                 const fillNickname = nicknameInput.value.toUpperCase();
                 const fillPosition = positionInput.value.toUpperCase();
@@ -84,8 +130,31 @@
                 nickname2.textContent = fillNickname;
                 nickname3.textContent = fillFullname;
                 position.textContent = fillPosition;
+
             }
 
+            function decreaseImageSize() {
+                if (currentSize > 10) {
+                    currentSize -= 10;
+                    updateImageSize();
+                }
+            }
+
+            function increaseImageSize() {
+                if (currentSize < 200) {
+                    currentSize += 10;
+                    updateImageSize();
+                }
+            }
+
+            function updateImageSize() {
+                const newSize = `${currentSize}%`;
+                profile.style.width = newSize;
+                currentSizeSpan.textContent = newSize;
+            }
+
+
+            // DOWNLOAD CANVAS USING HTML2CANVAS
             function downloadCanvas() {
                 html2canvas(imageContainer, {
                     onclone: (el) => {
@@ -203,6 +272,7 @@
                 document.onmousemove = null;
             }
         }
+
     </script>
 
 </body>
