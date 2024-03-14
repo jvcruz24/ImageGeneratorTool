@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image Generator Tool</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="normalize.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
@@ -17,7 +18,27 @@
 <body>
     <div class='container d-flex flex-column justify-content-center align-items-center'>
         <div class="d-flex justify-content-center align-items-center gap-5">
-            <div>
+            <div class='h-100'>
+                <div class='d-flex justify-content-start gap-3 mb-3'>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"
+                            checked onchange="updateText()">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                            She
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"
+                            onchange="updateText()">
+                        <label class="form-check-label" for="flexRadioDefault2">
+                            he
+                        </label>
+                    </div>
+                </div>
+                <!-- <select class="form-select mb-3" id='selectGender'>
+                    <option value="1" selected>She</option>
+                    <option value="2">He</option>
+                </select> -->
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="nicknameInput" placeholder="Enter nickname"
                         maxlength="6">
@@ -59,7 +80,7 @@
             </div>
 
             <div class="image-container mb-3" id="imageContainer">
-                <img src="https://raw.githubusercontent.com/jvcruz24/ImageGeneratorTool/main/template.jpg"
+                <img src="https://raw.githubusercontent.com/jvcruz24/ImageGeneratorTool/main/background.jpg"
                     alt="template" class="template" crossorigin="anonymous">
                 <div class='image-profile-container'>
                     <div>
@@ -68,17 +89,43 @@
                             crossorigin="anonymous">
                     </div>
                 </div>
-                <p class='copy1 shifted-text'>This is</p>
-                <div class='copy2-container shifted-text'>
-                    <p class='copy2'><span>She</span> is a top talent</p>
+                <div class='copies-container'>
+                    <div class='logo-container'>
+                        <img src="https://raw.githubusercontent.com/jvcruz24/ImageGeneratorTool/main/wideoutlogo.png"
+                            alt="wideoutlogo" class='wideoutlogo'>
+                    </div>
+                    <div class='headline'>
+                        <div class='divider-container'>
+                            <img src="https://raw.githubusercontent.com/jvcruz24/ImageGeneratorTool/main/were.png"
+                                alt="divider" class='divider'>
+                        </div>
+                        <div class='ten-xing-container'>
+                            <p class='ten-xing'>10xing</p>
+                        </div>
+                        <div class='today-container'>
+                            <p class='today'>TODAY</p>
+                        </div>
+                    </div>
+                    <div class='bottom'>
+                        <button class='custom-btn'>
+                            <p class='custom-btn-text shifted-text'>Ask us how</p>
+                        </button>
+                        <div class='footnote-container'>
+                            <p class='footnote'>(Of course we’re using AI!)</p>
+                        </div>
+                    </div>
+                    <div class='copy1-container'>
+                        <p class='copy1 shifted-text'>This is</p>
+                    </div>
+                    <div class='copy2-container shifted-text'>
+                        <p class='copy2' id="copyText"><span>She</span> is a top talent</p>
+                    </div>
                 </div>
-                <img src="wideoutlogo.png" alt="wideoutlogo" class='wideoutlogo'>
+
                 <p id="nickname" class="input-name nickname shifted-text"></p>
                 <p id="nickname2" class="input-name nickname2 shifted-text"></p>
                 <p id="nickname3" class="input-name nickname3"></p>
-                <button class='custom-btn'>
-                    <span class='custom-btn-text'>Ask us how</span>
-                </button>
+
                 <div class='position-container'>
                 </div>
                 <p class="position" id='position'></p>
@@ -141,7 +188,7 @@
             }
 
             function increaseImageSize() {
-                if (currentSize < 200) {
+                if (currentSize < 300) {
                     currentSize += 10;
                     updateImageSize();
                 }
@@ -273,6 +320,20 @@
             }
         }
 
+    </script>
+
+    <script>
+        function updateText() {
+            var radio1 = document.getElementById('flexRadioDefault1');
+            var radio2 = document.getElementById('flexRadioDefault2');
+            var copyText = document.getElementById('copyText');
+
+            if (radio1.checked) {
+                copyText.innerHTML = "<span>She</span> is a top talent";
+            } else if (radio2.checked) {
+                copyText.innerHTML = "<span>He</span> is a top talent";
+            }
+        }
     </script>
 
 </body>
