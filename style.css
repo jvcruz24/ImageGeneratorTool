@@ -438,3 +438,11 @@ path {
     top: -210px;
     left: -305px;
 }
+
+.tenX {
+    font-size: 1rem;
+}
+
+.lowercase {
+    text-transform: lowercase;
+}
