@@ -91,14 +91,14 @@
                             alt="wideoutlogo" class='wideoutlogo'>
                     </div>
                     <div class='headline' id='headline-container'>
-                        <div class='divider-container'>
+                        <div class='divider-container' style='display: none;'>
                             <img src="https://raw.githubusercontent.com/jvcruz24/ImageGeneratorTool/main/were.png"
                                 alt="divider" class='divider'>
                         </div>
-                        <div class='ten-xing-container'>
+                        <div class='ten-xing-container' style='display: none;'>
                             <p class='ten-xing shifted-text'>10xing</p>
                         </div>
-                        <div class='today-container'>
+                        <div class='today-container' style='display: none;'>
                             <p class='today shifted-text'>TODAY</p>
                         </div>
                     </div>
@@ -129,16 +129,16 @@
             <div class='template-container h-100'>
                 <div class='template-image' onclick='updateDefaultContent(this)'>
                 </div>
-                <div class='template-image' onclick="updateHeadline('headline_1.png')">
+                <div class='template-image' onclick="updateHeadline('headline_1')">
                     <img src="headline_1.png" alt="template-img">
                 </div>
-                <div class='template-image' onclick="updateHeadline('headline_2.png')">
+                <div class='template-image' onclick="updateHeadline('headline_2')">
                     <img src="headline_2.png" alt="template-img">
                 </div>
-                <div class='template-image' onclick="updateHeadline('headline_3.png')">
+                <div class='template-image' onclick="updateHeadline('headline_3')">
                     <img src="headline_3.png" alt="template-img">
                 </div>
-                <div class='template-image' onclick="updateHeadline('headline_4.png')">
+                <div class='template-image' onclick="updateHeadline('headline_4')">
                     <img src="headline_4.png" alt="template-img">
                 </div>
             </div>
@@ -240,35 +240,6 @@
     </script>
 
     <script>
-        const nickname2 = document.getElementById('nickname2');
-
-        function updateDefaultContent(element) {
-            var divContent = `
-                <div class='divider-container'>
-                    <img src="https://raw.githubusercontent.com/jvcruz24/ImageGeneratorTool/main/were.png"
-                        alt="divider" class='divider'>
-                </div>
-                <div class='ten-xing-container'>
-                    <p class='ten-xing shifted-text'>10xing</p>
-                </div>
-                <div class='today-container'>
-                    <p class='today shifted-text'>TODAY</p>
-                </div>`;
-
-
-            var divheadline = document.getElementById('headline-container');
-            divheadline.innerHTML = divContent;
-            nickname2.style.display = 'block';
-        }
-
-        function updateHeadline(imgSrc) {
-            var divheadline = document.getElementById('headline-container');
-            divheadline.innerHTML = `<img src="https://raw.githubusercontent.com/jvcruz24/ImageGeneratorTool/main/` + imgSrc + `" alt="" class='headline-img' id="headline-img">`;
-            nickname2.style.display = 'none';
-        }
-    </script>
-
-    <script>
         const profile = document.getElementById('profile');
         const dropzone = document.getElementById('dropzone');
         const fileInput = document.getElementById('fileInput');
@@ -364,6 +335,30 @@
     </script>
 
     <script>
+
+
+        const nickname2 = document.getElementById('nickname2');
+
+        function updateDefaultContent(element) {
+            var divContent = `
+        <div class='divider-container'>
+            <img src="https://raw.githubusercontent.com/jvcruz24/ImageGeneratorTool/main/were.png"
+                alt="divider" class='divider'>
+        </div>
+        <div class='ten-xing-container'>
+            <p class='ten-xing shifted-text'>10xing</p>
+        </div>
+        <div class='today-container'>
+            <p class='today shifted-text'>TODAY</p>
+        </div>`;
+
+
+            var divheadline = document.getElementById('headline-container');
+            divheadline.innerHTML = divContent;
+            nickname2.style.display = 'block';
+        }
+
+
         function updateText() {
             var radio1 = document.getElementById('flexRadioDefault1');
             var radio2 = document.getElementById('flexRadioDefault2');
@@ -374,6 +369,60 @@
             } else if (radio2.checked) {
                 copyText.innerHTML = "<span>He</span> is a top talent";
             }
+
+            var genderSpans = document.querySelectorAll('.gender');
+            if (radio1.checked) {
+                genderSpans.forEach(span => {
+                    span.innerHTML = "She";
+                });
+            } else {
+                genderSpans.forEach(span => {
+                    span.innerHTML = "He";
+                });
+            }
+        }
+
+        function updateHeadline(imgSrc) {
+            var divheadline = document.getElementById('headline-container');
+            var radio1 = document.getElementById('flexRadioDefault1');
+
+            if (imgSrc == 'headline_1') {
+                divheadline.innerHTML = `<p
+        style='top: 10px; width: 100%; height: 100%; text-align: center; color: #e02c4a; font-weight: 800; font-size: 0.8rem'>
+        Not only did <span class='gender'></span> 10x creation save us 8000 precious hours, but it also translated into a
+        cool $10,000 in savings!
+        </p>`;
+            } else if (imgSrc == 'headline_2') {
+                divheadline.innerHTML = `<p
+        style='top: 10px; width: 100%; height: 100%; text-align: center; color: #e02c4a; font-weight: 800; font-size: 0.8rem'>
+        <span class='gender'></span> brilliant 10x creation saved us a staggering 8000 hours of work!
+        That's like getting an extra year of productivity out of thin air!
+        </p>`;
+            } else if (imgSrc == 'headline_3') {
+                divheadline.innerHTML = `<p
+        style='top: 10px; width: 100%; height: 100%; text-align: center; color: #e02c4a; font-weight: 800; font-size: 0.8rem'>
+        <span class='gender'></span> incredible 10x creation not only saved us a massive 8000 hours of work but also put an extra $10,000 in our pockets.
+        It's like hitting the jackpot of productivity and savings all at once.
+        </p>`;
+            } else if (imgSrc == 'headline_4') {
+                divheadline.innerHTML = `<p
+        style='top: 10px; width: 100%; height: 100%; text-align: center; color: #e02c4a; font-weight: 800; font-size: 0.8rem'>
+        <span class='gender'></span> genius 10x creation saved us 8000 hours and productivity jackpot worth $10,000.
+        </p>`;
+            }
+
+            var genderSpans = document.querySelectorAll('.gender');
+            if (radio1.checked) {
+                genderSpans.forEach(span => {
+                    span.innerHTML = "She";
+                });
+            } else {
+                genderSpans.forEach(span => {
+                    span.innerHTML = "He";
+                });
+            }
+
+            nickname2.style.display = 'none';
         }
     </script>
 
