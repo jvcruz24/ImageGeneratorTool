@@ -35,10 +35,6 @@
                         </label>
                     </div>
                 </div>
-                <!-- <select class="form-select mb-3" id='selectGender'>
-                    <option value="1" selected>She</option>
-                    <option value="2">He</option>
-                </select> -->
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="nicknameInput" placeholder="Enter nickname"
                         maxlength="6">
@@ -94,17 +90,8 @@
                         <img src="https://raw.githubusercontent.com/jvcruz24/ImageGeneratorTool/main/wideoutlogo.png"
                             alt="wideoutlogo" class='wideoutlogo'>
                     </div>
-                    <div class='headline'>
-                        <div class='divider-container'>
-                            <img src="https://raw.githubusercontent.com/jvcruz24/ImageGeneratorTool/main/were.png"
-                                alt="divider" class='divider'>
-                        </div>
-                        <div class='ten-xing-container'>
-                            <p class='ten-xing shifted-text'>10xing</p>
-                        </div>
-                        <div class='today-container'>
-                            <p class='today shifted-text'>TODAY</p>
-                        </div>
+                    <div class='headline' id='headline-container'>
+                        <img src="headline_1.png" alt="" class='headline-img' id="headline-img">
                     </div>
                     <div class='bottom'>
                         <button class='custom-btn'>
@@ -129,6 +116,22 @@
                 <div class='position-container'>
                 </div>
                 <p class="position" id='position'></p>
+            </div>
+            <div class='template-container h-100'>
+                <div class='template-image' onclick='updateDefaultContent(this)'>
+                </div>
+                <div class='template-image' onclick="updateHeadline('headline_1.png')">
+                    <img src="headline_1.png" alt="template-img">
+                </div>
+                <div class='template-image' onclick="updateHeadline('headline_2.png')">
+                    <img src="headline_2.png" alt="template-img">
+                </div>
+                <div class='template-image' onclick="updateHeadline('headline_3.png')">
+                    <img src="headline_3.png" alt="template-img">
+                </div>
+                <div class='template-image' onclick="updateHeadline('headline_4.png')">
+                    <img src="headline_4.png" alt="template-img">
+                </div>
             </div>
         </div>
         <div class='row d-flex justify-content-center align-items-center p-3'>
@@ -225,6 +228,35 @@
                 });
             }
         });
+    </script>
+
+    <script>
+        const nickname2 = document.getElementById('nickname2');
+
+        function updateDefaultContent(element) {
+            var divContent = `
+                <div class='divider-container'>
+                    <img src="https://raw.githubusercontent.com/jvcruz24/ImageGeneratorTool/main/were.png"
+                        alt="divider" class='divider'>
+                </div>
+                <div class='ten-xing-container'>
+                    <p class='ten-xing shifted-text'>10xing</p>
+                </div>
+                <div class='today-container'>
+                    <p class='today shifted-text'>TODAY</p>
+                </div>`;
+
+
+            var divheadline = document.getElementById('headline-container');
+            divheadline.innerHTML = divContent;
+            nickname2.style.display = 'block';
+        }
+
+        function updateHeadline(imgSrc) {
+            var divheadline = document.getElementById('headline-container');
+            divheadline.innerHTML = `<img src="https://raw.githubusercontent.com/jvcruz24/ImageGeneratorTool/main` + imgSrc + `" alt="" class='headline-img' id="headline-img">`;
+            nickname2.style.display = 'none';
+        }
     </script>
 
     <script>
