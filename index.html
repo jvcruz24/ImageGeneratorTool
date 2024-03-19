@@ -17,7 +17,7 @@
 
 <body>
     <div class='container d-flex flex-column justify-content-center align-items-center'>
-        <div class="d-flex justify-content-center align-items-center gap-5">
+        <div class="flex-xs-columns flex-sm-column flex-md-row d-flex justify-content-center align-items-center gap-5">
             <div class='h-100'>
                 <div class='d-flex justify-content-start gap-3 mb-3'>
                     <div class="form-check">
@@ -39,6 +39,11 @@
                     <input type="text" class="form-control" id="nicknameInput" placeholder="Enter nickname"
                         maxlength="6">
                     <label for="nicknameInput">Enter Nickname</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <textarea type="text" class="form-control textarea-position" id="headlineInput"
+                        placeholder="Enter position" maxlength="100" rows='2'></textarea>
+                    <label for="headlineInput">Enter Text</label>
                 </div>
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="fullNameInput" placeholder="Enter fullName"
@@ -91,16 +96,10 @@
                             alt="wideoutlogo" class='wideoutlogo'>
                     </div>
                     <div class='headline' id='headline-container'>
-                        <div class='divider-container'>
-                            <img src="https://raw.githubusercontent.com/jvcruz24/ImageGeneratorTool/main/were.png"
-                                alt="divider" class='divider'>
-                        </div>
-                        <div class='ten-xing-container'>
-                            <p class='ten-xing shifted-text'>10xing</p>
-                        </div>
-                        <div class='today-container'>
-                            <p class='today shifted-text'>TODAY</p>
-                        </div>
+                        <p class='shifted-text-5'
+                            style='width: 100%; height: 94%; font-size: 21px; font-weight: 600; color: #e02c4a; word-break: break-all; padding-inline: 20px; overflow: hidden; line-height: 23px; margin-bottom: 0;'
+                            id='headline-text'>
+                        </p>
                     </div>
                     <div class='bottom'>
                         <button class='custom-btn'>
@@ -126,7 +125,7 @@
                 </div>
                 <p class="position" id='position'></p>
             </div>
-            <div class='template-container h-100'>
+            <div class='template-container h-100 flex-sm-row flex-md-column w-sm-100' style='display: none;'>
                 <div class='template-image' onclick='updateDefaultContent(this)'>
                     <img src="https://raw.githubusercontent.com/jvcruz24/ImageGeneratorTool/main/background.jpg"
                         alt="template" class="template" crossorigin="anonymous">
@@ -169,10 +168,12 @@
             const nicknameInput = document.getElementById('nicknameInput');
             const fullNameInput = document.getElementById('fullNameInput');
             const positionInput = document.getElementById('positionInput');
+            const headlineInput = document.getElementById('headlineInput');
             const nickname = document.getElementById('nickname');
             const nickname2 = document.getElementById('nickname2');
             const nickname3 = document.getElementById('nickname3');
             const position = document.getElementById('position');
+            const headlineText = document.getElementById('headline-text');
             const imageContainer = document.getElementById('imageContainer');
             const downloadButton = document.getElementById('downloadButton');
             const decreaseSizeBtn = document.getElementById('decreaseSizeBtn');
@@ -185,6 +186,7 @@
             nicknameInput.addEventListener('input', onInputChange);
             fullNameInput.addEventListener('input', onInputChange);
             positionInput.addEventListener('input', onInputChange);
+            headlineInput.addEventListener('input', onInputChange);
             downloadButton.addEventListener('click', downloadCanvas);
             decreaseSizeBtn.addEventListener('click', decreaseImageSize);
             increaseSizeBtn.addEventListener('click', increaseImageSize);
@@ -199,6 +201,7 @@
                 nickname2.textContent = fillNickname;
                 nickname3.textContent = fillFullname;
                 position.textContent = fillPosition;
+                headlineText.textContent = headlineInput.value;
 
             }
 
@@ -231,6 +234,7 @@
                         const elementsWithShiftedDownwardText2 = el.querySelectorAll('.shifted-text-2');
                         const elementsWithShiftedDownwardText3 = el.querySelectorAll('.shifted-text-3');
                         const elementsWithShiftedDownwardText4 = el.querySelectorAll('.shifted-text-4');
+                        const elementsWithShiftedDownwardText5 = el.querySelectorAll('.shifted-text-5');
                         elementsWithShiftedDownwardText.forEach(element => {
                             element.style.transform = 'translateY(65%)';
                         });
@@ -247,6 +251,9 @@
                         elementsWithShiftedDownwardText4.forEach(element => {
                             element.style.position = 'relative';
                             element.style.top = '7px';
+                        });
+                        elementsWithShiftedDownwardText5.forEach(element => {
+                            element.style.padding = '20px 20px 0px 20px';
                         });
                     },
                     useCORS: true,
