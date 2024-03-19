@@ -447,3 +447,8 @@ path {
 .lowercase {
     text-transform: lowercase;
 }
+
+.headlineInput {
+    height: 140px !important;
+    resize: none;
+}
