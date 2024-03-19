@@ -41,7 +41,7 @@ img {
     box-sizing: border-box;
     position: relative;
     overflow: hidden;
-    pointer-events: none;
+    /* pointer-events: none; */
 }
 
 .image-profile-container {
