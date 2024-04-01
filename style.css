@@ -261,9 +261,11 @@ path {
 
 .copy1 {
     font-weight: 600;
-    font-size: 38px;
+    font-size: 21px;
     color: #042f45;
     letter-spacing: -0.6px;
+    position: relative;
+    top: 23px;
 }
 
 .copy2-container {
@@ -292,6 +294,13 @@ path {
     right: 0;
 }
 
+.logo-text{
+    font-size: 21px;
+    font-weight: 600;
+    color: #e02c4a;
+    text-align: center;
+    width: 100%;
+}
 
 .logo-container {
     width: 100%;
@@ -313,6 +322,9 @@ path {
     /* background-color: green; */
     position: absolute;
     top: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .divider-container {
@@ -374,7 +386,7 @@ path {
 
 
 .custom-btn {
-    width: 180px;
+    width: 200px;
     height: 29px;
     background-image: -webkit-gradient(linear, left bottom, left top, from(#19a4b6), to(#2cd9ef));
     background-image: -o-linear-gradient(bottom, #19a4b6, #2cd9ef);
@@ -387,6 +399,8 @@ path {
     opacity: 1;
     display: flex;
     justify-content: center;
+    position: relative;
+    left: 13px;
 }
 
 .custom-btn-text {
@@ -399,12 +413,19 @@ path {
     width: 100%;
     display: flex;
     justify-content: center;
+    position: relative;
+    top: 26px;
+    left: 22px;
 }
 
 .footnote {
     color: #042f45;
     font-weight: 800;
-    font-size: 11px;
+    font-size: 18px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    gap: 5px;
 }
 
 .template-container {
@@ -451,4 +472,17 @@ path {
 .headlineInput {
     height: 140px !important;
     resize: none;
+}
+
+.footnote span{
+    color: #e02c4a;
+    font-size: 30px;
+}
+
+.ofcourse{
+    position: relative;
+    top: -15px;
+    color: #042f45;
+    font-weight: 800;
+    font-size: 15px;
 }
