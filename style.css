@@ -486,3 +486,16 @@ path {
     font-weight: 800;
     font-size: 15px;
 }
+
+#fix-small{
+    display: none;
+}
+
+@media screen and (max-width: 995px) {
+    #image-generator-container {
+      display: none !important; 
+    }
+    #fix-small{
+        display: block;
+    }
+  }
