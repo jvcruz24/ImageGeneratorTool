@@ -489,6 +489,12 @@ path {
 
 #fix-small{
     display: none;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 20px;
 }
 
 @media screen and (max-width: 995px) {
