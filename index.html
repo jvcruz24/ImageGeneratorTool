@@ -97,16 +97,7 @@
                                 <p class="logo-text shifted-text">at Wideout.</p>
                         </div>
                         <div class='headline' id='headline-container'>
-                            <p class='shifted-text-5' style='
-                            font-size: 21px;
-                            font-weight: 600;
-                            color: #e02c4a;
-                            word-break: break-word;
-                            padding: 5px 20px 0px 20px;
-                            overflow: hidden;
-                            line-height: 28px;
-                            margin-bottom: 0;
-                            text-align: center;' id='headline-text'>
+                            <p class='shifted-text-5 headline-text' id='headline-text'>
                             </p>
                         </div>
                         <div class='bottom'>
@@ -135,7 +126,7 @@
                     </div>
                     <p class="position" id='position'></p>
                 </div>
-                <div class="d-flex justify-content-between align-items-center">
+                <div class="d-sm-flex justify-content-between align-items-center">
                     <div>
                         <div>
 
@@ -260,8 +251,6 @@
             function downloadCanvas() {
                 html2canvas(imageContainer, {
                     scale: 2,
-                    width: 540,
-                    height: 540,
                     useCORS: true,
                     allowTaint: true,
                     logging: true,

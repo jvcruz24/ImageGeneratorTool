@@ -456,6 +456,18 @@ path {
     left: -305px;
 }
 
+.headline-text{
+    font-size: 21px;
+    font-weight: 600;
+    color: #e02c4a;
+    word-break: break-word;
+    padding: 5px 20px 0px 20px;
+    overflow: hidden;
+    line-height: 28px;
+    margin-bottom: 0;
+    text-align: center;
+}
+
 .tenX {
     font-size: 1rem;
 }
@@ -492,11 +504,129 @@ path {
     width: 100%;
 }
 
-@media screen and (max-width: 572px) {
+/* @media screen and (max-width: 572px) {
     #image-generator-container {
       display: none !important; 
     }
     #fix-small{
         display: block;
     }
+  } */
+
+  @media screen and (max-width: 576px) {
+    img{
+        width: 270px;
+        height: 270px;
+        background-size: 270px 270px;
+    }
+    .image-container {
+        width: 270px;
+        height: 270px;
+    }
+    .nickname {
+        font-size: 19px;
+        width: 97.5px;
+        top: 46px;
+        left: 161px;
+    }
+    .nickname2 {
+        font-size: 23.5px;
+        top: 135px;
+        left: 156.5px;
+        width: 107px;
+    }
+    .nickname3{
+        font-size: 5.5px;
+        top: 240px;
+        left: 12.5px;
+    }
+    .position-container{
+        width: 100px;
+        height: 10px;
+    }
+    .position {
+        font-size: 5.5px;
+        top: 247.5px;
+        left: 12.5px;
+        width: 125px;
+    }
+    .copy1-container {
+        top: 24px;
+    }
+
+    .copy1 {
+        font-size: 10.5px;
+        letter-spacing: -0.3px;
+        top: 11.5px;
+    }
+
+    .copy2-container {
+        height: 15px;
+        top: 70.5px;
+    }
+
+    .copy2 {
+        font-size: 10.5px;
+    }
+
+    .copies-container {
+        width: 117.5px;
+    }
+
+    .logo-text{
+        font-size: 10.5px;
+    }
+
+    .logo-container {
+        height: 15px;
+        top: 86.5px;
+    }
+
+    .headline {
+        height: 75px;
+        top: 100px;
+    }
+    .image-profile-container{
+        width: 150px;
+        height: 270px;
+    }
+    .headline-text{
+        font-size: 10.5px;
+        padding: 2.5px 10px 0px 10px;
+        line-height: 14px;
+    }
+
+    .bottom {
+        top: 177.5px;
+    }
+
+    .custom-btn {
+        width: 100px;
+        height: 14.5px;
+        border-radius: 18pxpx;
+        left: 6.5px;
+    }
+    
+    .custom-btn-text {
+        font-size: 8px;
+    }
+
+    .footnote-container {
+        top: 13px;
+        left: 11px;
+    }
+    
+    .footnote {
+        font-size: 9px;
+        gap: 2.5px;
+    }
+    .footnote span{
+        font-size: 15px;
+    }
+    
+    .ofcourse{
+        top: -7.5px;
+        font-size: 7.5px;
+    }
+    
   }
