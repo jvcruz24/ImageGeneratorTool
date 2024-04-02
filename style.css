@@ -29,11 +29,6 @@ img {
     background-size: 540px 540px;
 }
 
-.container {
-    width: 100vw;
-    height: 100vh;
-}
-
 .image-container {
     width: 540px;
     height: 540px;
@@ -496,12 +491,12 @@ path {
     text-align: center;
     width: 100%;
 }
-
-@media screen and (max-width: 995px) {
+/* 
+@media screen and (max-width: 572px) {
     #image-generator-container {
       display: none !important; 
     }
     #fix-small{
         display: block;
     }
-  }
+  } */
