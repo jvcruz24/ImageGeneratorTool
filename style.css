@@ -491,7 +491,7 @@ path {
     text-align: center;
     width: 100%;
 }
-/* 
+
 @media screen and (max-width: 572px) {
     #image-generator-container {
       display: none !important; 
@@ -499,4 +499,4 @@ path {
     #fix-small{
         display: block;
     }
-  } */
+  }
