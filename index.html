@@ -16,7 +16,8 @@
 </head>
 
 <body>
-    <div id="image-generator-container" class='image-generator-container container d-flex flex-column justify-content-center align-items-center mt-5'>
+    <div id="image-generator-container"
+        class='image-generator-container container d-flex flex-column justify-content-center align-items-center mt-5'>
         <div class="d-lg-flex flex-lg-row justify-content-center align-items-start gap-5">
             <div class='d-flex flex-column'>
                 <div class='d-flex justify-content-start gap-3 mb-3'>
@@ -31,7 +32,14 @@
                         <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"
                             onchange="updateText()">
                         <label class="form-check-label" for="flexRadioDefault2">
-                            he
+                            He
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3"
+                            onchange="updateText()">
+                        <label class="form-check-label" for="flexRadioDefault3">
+                            They
                         </label>
                     </div>
                 </div>
@@ -52,49 +60,28 @@
                 </div>
                 <div class="form-floating mb-3">
                     <textarea type="text" class="form-control textarea-position" id="positionInput"
-                        placeholder="Enter position" maxlength="50" rows='2' onchange='textAreaChange()'></textarea>
+                        placeholder="Enter position" maxlength="50" rows='2'></textarea>
                     <label for="positionInput">Enter Position</label>
                 </div>
                 <div class="dropzone mb-3" id="dropzone" onclick='triggerFileInput()'>
                     <span>Drag & Drop image here or click to upload</span>
-                    <input type="file" id="fileInput" style="display: none;" onchange="handleFileSelect()">
+                    <input type="file" id="fileInput" style="display: none;" accept="image/*" multiple>
                 </div>
-                <div class='image-size d-flex justify-content-between align-items-center'>
-                    <div>
+                <div id='resizable-container-collection' class='resizable-container-collection'>
+                </div>
 
-                        <label for="">Image Size : </label>
-                        <span id="currentSize">100%</span>
-                    </div>
-                    <div class='d-flex gap-2'>
-                        <button class='btn btn-primary rounded-circle' id="decreaseSizeBtn"><svg
-                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                                <path
-                                    d="M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z" />
-                            </svg></button>
-                        <button class='btn btn-primary rounded-circle' id="increaseSizeBtn"><svg
-                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                                <path
-                                    d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
-                            </svg></button>
-                    </div>
-                </div>
             </div>
             <div class=' d-flex justify-content-center flex-column mt-lg-0 mt-5'>
                 <div class="image-container mb-3" id="imageContainer">
                     <img src="https://raw.githubusercontent.com/jvcruz24/ImageGeneratorTool/main/background.jpg"
                         alt="template" class="template" crossorigin="anonymous">
-                    <div class='image-profile-container'>
-                        <div>
-                            <img src="https://raw.githubusercontent.com/jvcruz24/ImageGeneratorTool/main/transparent.png"
-                                alt=" " class="image-profile img-fluid resizable-image" id='profile'
-                                crossorigin="anonymous">
-                        </div>
+                    <div id='imagePreview' class='imagePreview'>
                     </div>
                     <div class='copies-container'>
                         <div class='logo-container'>
                             <!-- <img src="https://raw.githubusercontent.com/jvcruz24/ImageGeneratorTool/main/wideoutlogo.png"
                                 alt="wideoutlogo" class='wideoutlogo'> -->
-                                <p class="logo-text shifted-text">at Wideout.</p>
+                            <p class="logo-text shifted-text">at Wideout.</p>
                         </div>
                         <div class='headline' id='headline-container'>
                             <p class='shifted-text-5 headline-text' id='headline-text'>
@@ -111,7 +98,7 @@
                             </div>
                         </div>
                         <div class='copy1-container'>
-                            <p class='copy1 shifted-text'>This is</p>
+                            <p class='copy1 shifted-text' id='copy1Text'>This is</p>
                         </div>
                         <div class='copy2-container'>
                             <p class='copy2 shifted-text' id="copyText"><span>She</span> is a top talent</p>
@@ -136,11 +123,13 @@
                         </div>
                         <div>
 
-                            <a href="https://www.lightxeditor.com/photo-editing/ai-headshot-generator/" target="_blank">Use AI for transformation.</a>
+                            <a href="https://www.lightxeditor.com/photo-editing/ai-headshot-generator/"
+                                target="_blank">Use AI for transformation.</a>
                         </div>
                     </div>
                     <div class='row d-flex justify-content-center align-items-center p-3'>
-                        <button type='submit' class="btn btn-primary downloadButton" id="downloadButton">Generate Image</button>
+                        <button type='submit' class="btn btn-primary downloadButton" id="downloadButton">Generate
+                            Image</button>
                     </div>
                 </div>
             </div>
@@ -186,68 +175,42 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
 
-            const nicknameInput = document.getElementById('nicknameInput');
-            const fullNameInput = document.getElementById('fullNameInput');
-            const positionInput = document.getElementById('positionInput');
-            const headlineInput = document.getElementById('headlineInput');
-            const nickname = document.getElementById('nickname');
-            const nickname2 = document.getElementById('nickname2');
-            const nickname3 = document.getElementById('nickname3');
-            const position = document.getElementById('position');
-            const headlineText = document.getElementById('headline-text');
-            const imageContainer = document.getElementById('imageContainer');
+            // Get references to all input and display elements
+            const inputs = {
+                nickname: document.getElementById('nicknameInput'),
+                fullName: document.getElementById('fullNameInput'),
+                position: document.getElementById('positionInput'),
+                headline: document.getElementById('headlineInput'),
+            };
+            const displays = {
+                nickname: document.getElementById('nickname'),
+                nickname2: document.getElementById('nickname2'),
+                fullName: document.getElementById('nickname3'),
+                position: document.getElementById('position'),
+                headline: document.getElementById('headline-text'),
+            };
             const downloadButton = document.getElementById('downloadButton');
-            const decreaseSizeBtn = document.getElementById('decreaseSizeBtn');
-            const increaseSizeBtn = document.getElementById('increaseSizeBtn');
-            const currentSizeSpan = document.getElementById('currentSize');
-            let currentSize = 100; // Initial size percentage
+            const imageContainer = document.getElementById('imageContainer');
 
+            // Add event listeners to all input fields
+            for (const inputName in inputs) {
+                inputs[inputName].addEventListener('input', onInputChange);
+            }
 
+            // Update displayed text on input change
+            function onInputChange(event) {
+                console.log(event.target.id)
+                const fieldName = event.target.id;
+                const uppercaseValue = event.target.value.toUpperCase();
+                displays[fieldName.replace('Input', '')].textContent = uppercaseValue;
+                if (fieldName === 'headlineInput') {
+                    displays.headline.textContent = event.target.value;
+                }
+            }
 
-            nicknameInput.addEventListener('input', onInputChange);
-            fullNameInput.addEventListener('input', onInputChange);
-            positionInput.addEventListener('input', onInputChange);
-            headlineInput.addEventListener('input', onInputChange);
             downloadButton.addEventListener('click', downloadCanvas);
-            decreaseSizeBtn.addEventListener('click', decreaseImageSize);
-            increaseSizeBtn.addEventListener('click', increaseImageSize);
 
-            // ONCHANGE INPUT
-            function onInputChange() {
-                const fillNickname = nicknameInput.value.toUpperCase();
-                const fillPosition = positionInput.value.toUpperCase();
-                const fillFullname = fullNameInput.value.toUpperCase();
-
-                nickname.textContent = fillNickname;
-                nickname2.textContent = fillNickname;
-                nickname3.textContent = fillFullname;
-                position.textContent = fillPosition;
-                headlineText.textContent = headlineInput.value;
-
-            }
-
-            function decreaseImageSize() {
-                if (currentSize > 10) {
-                    currentSize -= 10;
-                    updateImageSize();
-                }
-            }
-
-            function increaseImageSize() {
-                if (currentSize < 300) {
-                    currentSize += 10;
-                    updateImageSize();
-                }
-            }
-
-            function updateImageSize() {
-                const newSize = `${currentSize}%`;
-                profile.style.width = newSize;
-                currentSizeSpan.textContent = newSize;
-            }
-
-
-            // DOWNLOAD CANVAS USING HTML2CANVAS
+            // Download canvas using html2canvas
             function downloadCanvas() {
                 html2canvas(imageContainer, {
                     scale: 2,
@@ -256,49 +219,58 @@
                     logging: true,
                     taintTest: false,
                     onclone: (el) => {
-                        const elementsWithShiftedDownwardText = el.querySelectorAll('.shifted-text');
-                        const elementsWithShiftedDownwardText2 = el.querySelectorAll('.shifted-text-2');
-                        const elementsWithShiftedDownwardText3 = el.querySelectorAll('.shifted-text-3');
-                        const elementsWithShiftedDownwardText4 = el.querySelectorAll('.shifted-text-4');
-                        const elementsWithShiftedDownwardText5 = el.querySelectorAll('.shifted-text-5');
-                        elementsWithShiftedDownwardText.forEach(element => {
-                            element.style.transform = 'translateY(65%)';
-                        });
-
-                        elementsWithShiftedDownwardText2.forEach(element => {
-                            element.style.transform = 'translateY(-40%)';
-                        });
-
-                        elementsWithShiftedDownwardText3.forEach(element => {
-                            element.style.position = 'relative';
-                            element.style.top = '10px';
-                        });
-
-                        elementsWithShiftedDownwardText4.forEach(element => {
-                            element.style.position = 'relative';
-                            element.style.top = '7px';
-                        });
-                        elementsWithShiftedDownwardText5.forEach(element => {
-                            element.style.padding = '35px 20px 0px 20px';
-                        });
+                        const shiftedElements = {
+                            downward1: el.querySelectorAll('.shifted-text'),
+                            downward2: el.querySelectorAll('.shifted-text-2'),
+                            upward: el.querySelectorAll('.shifted-text-3'),
+                            upward2: el.querySelectorAll('.shifted-text-4'),
+                            padding: el.querySelectorAll('.shifted-text-5'),
+                        };
+                        for (const elementClass in shiftedElements) {
+                            shiftedElements[elementClass].forEach(element => {
+                                switch (elementClass) {
+                                    case 'downward1':
+                                        element.style.transform = 'translateY(65%)';
+                                        break;
+                                    case 'downward2':
+                                        element.style.transform = 'translateY(-40%)';
+                                        break;
+                                    case 'upward':
+                                        element.style.position = 'relative';
+                                        element.style.top = '10px';
+                                        break;
+                                    case 'upward2':
+                                        element.style.position = 'relative';
+                                        element.style.top = '7px';
+                                        break;
+                                    case 'padding':
+                                        element.style.padding = '35px 20px 0px 20px';
+                                        break;
+                                }
+                            });
+                        }
                     }
                 }).then(function (canvas) {
                     const dataUrl = canvas.toDataURL('image/png');
-                    const a = document.createElement('a');
-                    a.href = dataUrl;
-                    a.download = 'generatedimage.png';
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
+                    const link = document.createElement('a');
+                    link.href = dataUrl;
+                    link.download = 'generatedimage.png';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
                 });
             }
         });
+
     </script>
 
     <script>
+        let imageCount = 0;
         const profile = document.getElementById('profile');
         const dropzone = document.getElementById('dropzone');
         const fileInput = document.getElementById('fileInput');
+        const imagePreview = document.getElementById('imagePreview');
+        const resizeCollection = document.getElementById('resizable-container-collection');
 
         dropzone.addEventListener('dragover', (e) => {
             e.preventDefault();
@@ -319,35 +291,71 @@
             fileInput.click();
         }
 
-        function handleFileSelect() {
-            const files = fileInput.files;
-            handleDroppedFiles(files);
+        function dragStart(event) {
+            event.dataTransfer.setData("text/plain", event.target.id); // Use ID to track element
         }
 
-        function handleDroppedFiles(files) {
-            if (files.length) {
-                const file = files[0];
+        function dragEnd(event) {
+            event.target.classList.remove("dragging");
+        }
 
-                if (file.type.startsWith('image/')) {
-                    const reader = new FileReader();
+        function allowDrop(event) {
+            event.preventDefault();
+        }
 
-                    reader.onload = () => {
-                        profile.src = reader.result;
-                    };
+        function drop(event) {
+            const sourceId = event.dataTransfer.getData("text/plain");
+            const sourceItem = document.getElementById(sourceId);
+            const targetContainer = event.target.parentNode;
 
-                    reader.readAsDataURL(file);
-                } else {
-                    alert('Please choose an image file');
-                }
+            if (event.target !== event.currentTarget && sourceItem) {
+                targetContainer.appendChild(sourceItem); // Move the original element
             }
         }
-    </script>
 
-    <script>
-        // Make the DIV element draggable:
-        dragElement(document.getElementById("profile"));
+
+        fileInput.addEventListener('change', function (event) {
+            const files = event.target.files; // Get uploaded files
+
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                const reader = new FileReader();
+
+                reader.onload = function (event) {
+
+                    imageCount++; // Increment counter for unique ID
+                    const maxWidth = 200; // Adjust this value for maximum width
+                    let currentWidth = 100; // Initial width
+
+                    const imgContainer = document.createElement('div');
+                    imgContainer.classList.add('imageContainer', 'stackable-div');
+                    imgContainer.draggable = true; // Enable dragging
+                    imgContainer.id = `image-container-${imageCount}`; // Unique ID
+
+                    const img = document.createElement('img');
+                    img.src = event.target.result;
+                    imgContainer.style.width = currentWidth + '%';
+                    imgContainer.appendChild(img);
+
+
+                    // Add Drag Functionality:
+                    dragElement(imgContainer);
+
+                    // Add Image Size Controller Functionality
+                    createImageSizeControl(resizeCollection, imgContainer, currentWidth, maxWidth);
+
+                    imagePreview.appendChild(imgContainer);
+
+
+
+                };
+
+                reader.readAsDataURL(file);
+            }
+        });
 
         function dragElement(elmnt) {
+            console.log(elmnt);
             var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
             if (document.getElementById(elmnt.id + "header")) {
                 // if present, the header is where you move the DIV from:
@@ -388,100 +396,224 @@
             }
         }
 
+
+        function createImageSizeControl(resizeCollection, imgContainer, currentWidth, maxWidth) {
+            const imageSizerContainer = document.createElement('div');
+            imageSizerContainer.classList.add('image-size', 'd-flex', 'justify-content-between', 'align-items-center', 'mb-3', 'position-relative', 'stackable-div');
+
+            const span = document.createElement('span');
+            span.classList.add('image-name')
+            span.textContent = imgContainer.id;
+
+            const buttonCloseControl = createRemoveButton(imageSizerContainer, imgContainer);
+            const indexBtnControl = createIndexButton();
+            const buttonSizeControl = createResizeButton(imgContainer, currentWidth, maxWidth);
+            imageSizerContainer.appendChild(span);
+            imageSizerContainer.appendChild(buttonCloseControl)
+            imageSizerContainer.appendChild(indexBtnControl);
+            imageSizerContainer.appendChild(buttonSizeControl);
+
+            resizeCollection.appendChild(imageSizerContainer);
+        }
+
+        function createIndexButton() {
+            const indexButtons = document.createElement('div');
+            indexButtons.classList.add('index-buttons', 'gap-2');
+
+            const plusButton = document.createElement('button');
+            plusButton.innerHTML = createArrowUpIcon();
+            plusButton.addEventListener('click', function () {
+
+            });
+            indexButtons.appendChild(plusButton);
+
+            const minusButton = document.createElement('button');
+            minusButton.innerHTML = createArrowDownIcon();
+            minusButton.addEventListener('click', function () {
+            });
+            indexButtons.appendChild(minusButton);
+
+            return indexButtons;
+        }
+
+        function createRemoveButton(imageSizerContainer, imgContainer) {
+
+            const closeButton = document.createElement('span');
+            closeButton.classList.add('close-button');
+            closeButton.innerHTML = createTrashIcon();
+            closeButton.addEventListener('click', function () {
+                imgContainer.parentElement.removeChild(imgContainer);
+                imageSizerContainer.parentElement.removeChild(imageSizerContainer);
+            });
+
+            return closeButton;
+
+        }
+
+        function createResizeButton(imgContainer, currentWidth, maxWidth) {
+
+            const resizeButtons = document.createElement('div');
+
+            resizeButtons.classList.add('d-flex', 'align-items-center', 'gap-2');
+
+            const span = document.createElement('span');
+            span.id = 'currentSize';
+            span.textContent = '100%';
+
+            const decreaseButton = document.createElement('button');
+            decreaseButton.classList.add('btn', 'btn-primary', 'rounded-circle', 'decreaseSizeBtn');
+            decreaseButton.id = 'decreaseSizeBtn';
+            decreaseButton.innerHTML = createDecreaseIcon();
+            decreaseButton.addEventListener('click', function () {
+                if (currentWidth > 50) { // Adjust decrement minimum size
+                    currentWidth -= 10;
+                    imgContainer.style.width = currentWidth + '%';
+                    span.textContent = currentWidth + '%';
+                }
+            });
+
+
+            const increaseButton = document.createElement('button');
+            increaseButton.classList.add('btn', 'btn-primary', 'rounded-circle', 'increaseSizeBtn');
+            increaseButton.id = 'increaseSizeBtn';
+            increaseButton.innerHTML = createIncreaseIcon();
+            increaseButton.addEventListener('click', function () {
+                if (currentWidth < maxWidth) {
+                    currentWidth += 10; // Adjust increment value for resizing
+                    imgContainer.style.width = currentWidth + '%';
+                    span.textContent = currentWidth + '%';
+                }
+            });
+
+            resizeButtons.appendChild(span);
+            resizeButtons.appendChild(decreaseButton);
+            resizeButtons.appendChild(increaseButton);
+
+            return resizeButtons;
+        }
+
+        function createDecreaseIcon() {
+            return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+            <path d="M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z" />
+          </svg>`;
+        }
+
+        function createIncreaseIcon() {
+            return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+            <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
+          </svg>`;
+        }
+
+        function createTrashIcon() {
+            return `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+            <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+            </svg>`;
+        }
+
+        function createArrowUpIcon() {
+            return `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5"/>
+            </svg>`;
+        }
+
+        function createArrowDownIcon() {
+            return `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1"/>
+            </svg>`;
+        }
+
     </script>
+
 
     <script>
 
 
-        const nickname2 = document.getElementById('nickname2');
+        // const nickname2 = document.getElementById('nickname2');
 
-        function updateDefaultContent(element) {
-            var divContent = `
-            <div class='divider-container'>
-                <img src="https://raw.githubusercontent.com/jvcruz24/ImageGeneratorTool/main/were.png"
-                    alt="divider" class='divider'>
-            </div>
-            <div class='ten-xing-container'>
-                <p class='ten-xing shifted-text'>10xing</p>
-            </div>
-            <div class='today-container'>
-                <p class='today shifted-text'>TODAY</p>
-            </div>`;
+        // function updateDefaultContent(element) {
+        //     var divContent = `
+        //     <div class='divider-container'>
+        //         <img src="https://raw.githubusercontent.com/jvcruz24/ImageGeneratorTool/main/were.png"
+        //             alt="divider" class='divider'>
+        //     </div>
+        //     <div class='ten-xing-container'>
+        //         <p class='ten-xing shifted-text'>10xing</p>
+        //     </div>
+        //     <div class='today-container'>
+        //         <p class='today shifted-text'>TODAY</p>
+        //     </div>`;
 
 
-            var divheadline = document.getElementById('headline-container');
-            divheadline.innerHTML = divContent;
-            nickname2.style.display = 'block';
-        }
+        //     var divheadline = document.getElementById('headline-container');
+        //     divheadline.innerHTML = divContent;
+        //     nickname2.style.display = 'block';
+        // }
 
 
         function updateText() {
             var radio1 = document.getElementById('flexRadioDefault1');
             var radio2 = document.getElementById('flexRadioDefault2');
+            var radio3 = document.getElementById('flexRadioDefault3');
             var copyText = document.getElementById('copyText');
+            var copyText1 = document.getElementById('copy1Text');
 
             if (radio1.checked) {
                 copyText.innerHTML = "<span>She</span> is a top talent";
+                copyText1.innerHTML = "This is";
             } else if (radio2.checked) {
                 copyText.innerHTML = "<span>He</span> is a top talent";
-            }
-
-            var genderSpans = document.querySelectorAll('.gender');
-            if (radio1.checked) {
-                genderSpans.forEach(span => {
-                    span.innerHTML = "Her";
-                });
-            } else {
-                genderSpans.forEach(span => {
-                    span.innerHTML = "He";
-                });
+                copyText1.innerHTML = "This is";
+            } else if (radio3.checked) {
+                copyText.innerHTML = "<span>The're</span> top talents";
+                copyText1.innerHTML = "Here's our";
             }
         }
-        function updateHeadline(imgSrc) {
-            var divHeadline = document.getElementById('headline-container');
-            var radio1 = document.getElementById('flexRadioDefault1');
-            var headlineData = {
-                'headline_1': {
-                    'text': "Not only did <span class='gender lowercase'></span> <span class='shifted-text-3' style='font-size:1.5rem'>10x</span> creation save us <span class='shifted-text-3' style='font-size:1.5rem'>8,000</span> precious hours, but it also translated into a cool <span class='shifted-text-3' style='font-size:1.5rem'>$10,000</span> in savings!",
-                    'fontSize': '1rem',
-                    'lineHeight': '24px'
-                },
-                'headline_2': {
-                    'text': "<span class='gender'></span> brilliant <span class='shifted-text-3' style='font-size:1.5rem'>10x</span> creation saved us a staggering <span class='shifted-text-3' style='font-size:1.5rem'>8,000</span> hours of work! That's like getting an extra year of productivity out of thin air!",
-                    'fontSize': '1rem',
-                    'lineHeight': '21px'
-                },
-                'headline_3': {
-                    'text': "<span class='gender'></span> incredible <span class='shifted-text-4' style='font-size:1.2rem'>10x</span> creation not only saved us a massive <span class='shifted-text-4' style='font-size:1.2rem'>8,000</span> hours of work but also put an extra <span class='shifted-text-4' style='font-size:1.2rem'>$10,000</span> in our pockets. It's like hitting the jackpot of productivity and savings all at once.",
-                    'fontSize': '0.8rem',
-                    'lineHeight': '18px'
-                },
-                'headline_4': {
-                    'text': "<span class='gender'></span> genius <span class='shifted-text-3' style='font-size:1.5rem'>10x</span> creation saved us <span class='shifted-text-3' style='font-size:1.5rem'>8,000</span> hours and productivity jackpot worth <span class='shifted-text-3' style='font-size:1.5rem'>$10,000</span>.",
-                    'fontSize': '1rem',
-                    'lineHeight': '26px'
-                }
-            };
+        // function updateHeadline(imgSrc) {
+        //     var divHeadline = document.getElementById('headline-container');
+        //     var radio1 = document.getElementById('flexRadioDefault1');
+        //     var headlineData = {
+        //         'headline_1': {
+        //             'text': "Not only did <span class='gender lowercase'></span> <span class='shifted-text-3' style='font-size:1.5rem'>10x</span> creation save us <span class='shifted-text-3' style='font-size:1.5rem'>8,000</span> precious hours, but it also translated into a cool <span class='shifted-text-3' style='font-size:1.5rem'>$10,000</span> in savings!",
+        //             'fontSize': '1rem',
+        //             'lineHeight': '24px'
+        //         },
+        //         'headline_2': {
+        //             'text': "<span class='gender'></span> brilliant <span class='shifted-text-3' style='font-size:1.5rem'>10x</span> creation saved us a staggering <span class='shifted-text-3' style='font-size:1.5rem'>8,000</span> hours of work! That's like getting an extra year of productivity out of thin air!",
+        //             'fontSize': '1rem',
+        //             'lineHeight': '21px'
+        //         },
+        //         'headline_3': {
+        //             'text': "<span class='gender'></span> incredible <span class='shifted-text-4' style='font-size:1.2rem'>10x</span> creation not only saved us a massive <span class='shifted-text-4' style='font-size:1.2rem'>8,000</span> hours of work but also put an extra <span class='shifted-text-4' style='font-size:1.2rem'>$10,000</span> in our pockets. It's like hitting the jackpot of productivity and savings all at once.",
+        //             'fontSize': '0.8rem',
+        //             'lineHeight': '18px'
+        //         },
+        //         'headline_4': {
+        //             'text': "<span class='gender'></span> genius <span class='shifted-text-3' style='font-size:1.5rem'>10x</span> creation saved us <span class='shifted-text-3' style='font-size:1.5rem'>8,000</span> hours and productivity jackpot worth <span class='shifted-text-3' style='font-size:1.5rem'>$10,000</span>.",
+        //             'fontSize': '1rem',
+        //             'lineHeight': '26px'
+        //         }
+        //     };
 
-            if (headlineData.hasOwnProperty(imgSrc)) {
-                var headline = headlineData[imgSrc];
-                divHeadline.innerHTML = `<p class='shifted-text-2'
-            style='top: 10px; width: 100%; height: auto; text-align: center; color: #e02c4a; font-weight: 800; font-size: ${headline.fontSize}; padding: 0px 0px; top: 50%; transform: translateY(-50%); line-height: ${headline.lineHeight};'>${headline.text}</p>`;
-            }
+        //     if (headlineData.hasOwnProperty(imgSrc)) {
+        //         var headline = headlineData[imgSrc];
+        //         divHeadline.innerHTML = `<p class='shifted-text-2'
+        //     style='top: 10px; width: 100%; height: auto; text-align: center; color: #e02c4a; font-weight: 800; font-size: ${headline.fontSize}; padding: 0px 0px; top: 50%; transform: translateY(-50%); line-height: ${headline.lineHeight};'>${headline.text}</p>`;
+        //     }
 
-            var genderSpans = document.querySelectorAll('.gender');
-            if (radio1.checked) {
-                genderSpans.forEach(span => {
-                    span.innerHTML = "Her";
-                });
-            } else {
-                genderSpans.forEach(span => {
-                    span.innerHTML = "He";
-                });
-            }
+        //     var genderSpans = document.querySelectorAll('.gender');
+        //     if (radio1.checked) {
+        //         genderSpans.forEach(span => {
+        //             span.innerHTML = "Her";
+        //         });
+        //     } else {
+        //         genderSpans.forEach(span => {
+        //             span.innerHTML = "He";
+        //         });
+        //     }
 
-            nickname2.style.display = 'none';
-        }
+        //     nickname2.style.display = 'none';
+        // }
     </script>
 
 </body>

@@ -39,13 +39,95 @@ img {
     /* pointer-events: none; */
 }
 
-.image-profile-container {
+.imagePreview {
     position: absolute;
     top: 0;
     left: 0;
     width: 300px;
     height: 540px;
-    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px;
+}
+
+.imagePreview img {
+    width: 100%;
+    height: auto;
+    margin: 5px;
+    object-fit: cover;
+    /* Ensures images fit within dimensions */
+}
+
+.imageContainer {
+    width: 100%;
+    height: auto;
+    position: absolute;
+}
+
+.index-buttons {
+    display: flex;
+}
+
+.index-buttons button {
+    width: 35px !important;
+    height: 35px !important;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex !important;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    -ms-flex-line-pack: center;
+    align-content: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: #ff414d;
+    border: none;
+}
+
+.resize-buttons {
+    position: absolute;
+    display: flex;
+    top: 5px;
+    left: 50%;
+    /* For horizontal button placement */
+}
+
+.resize-buttons button {
+    width: 25px;
+    height: 25px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    font-size: 16px;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 0;
+}
+
+.close-button {
+    position: absolute;
+    top: -14px;
+    right: -4px;
+    cursor: pointer;
+    font-size: 22px;
+    font-weight: bold;
+    color: red;
+    z-index: 1;
+}
+
+.close-button svg path {
+    width: 25px;
+    height: auto;
+    fill: #b12b34;
 }
 
 .nickname {
@@ -219,13 +301,40 @@ button[type="submit"]:hover {
     padding: 1rem 0.75rem;
 }
 
-#decreaseSizeBtn,
-#increaseSizeBtn {
+.image-name {
+    position: absolute;
+    bottom: 0px;
+    left: 50%;
+    font-size: 9px;
+    text-transform: uppercase;
+    transform: translateX(-50%);
+}
+
+.stackable-div {
+    cursor: grab;
+}
+
+.stackable-div.dragging {
+    opacity: 0.5;
+}
+
+.resizable-container-collection {
+    border: 2px dashed #cecece;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.image-size:last-child {
+    margin-bottom: 0 !important;
+}
+
+.decreaseSizeBtn,
+.increaseSizeBtn {
     width: 35px !important;
     height: 35px !important;
     display: -webkit-box;
     display: -ms-flexbox;
-    display: flex;
+    display: flex !important;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
     -ms-flex-direction: column;
@@ -289,7 +398,7 @@ path {
     right: 0;
 }
 
-.logo-text{
+.logo-text {
     font-size: 21px;
     font-weight: 600;
     color: #e02c4a;
@@ -456,7 +565,7 @@ path {
     left: -305px;
 }
 
-.headline-text{
+.headline-text {
     font-size: 21px;
     font-weight: 600;
     color: #e02c4a;
@@ -481,12 +590,12 @@ path {
     resize: none;
 }
 
-.footnote span{
+.footnote span {
     color: #e02c4a;
     font-size: 30px;
 }
 
-.ofcourse{
+.ofcourse {
     position: relative;
     top: -15px;
     color: #042f45;
@@ -494,7 +603,7 @@ path {
     font-size: 15px;
 }
 
-#fix-small{
+#fix-small {
     display: none;
     position: absolute;
     top: 50%;
@@ -513,43 +622,50 @@ path {
     }
   } */
 
-  @media screen and (max-width: 576px) {
-    img{
+@media screen and (max-width: 576px) {
+    img {
         width: 270px;
         height: 270px;
         background-size: 270px 270px;
     }
+
     .image-container {
         width: 270px;
         height: 270px;
     }
+
     .nickname {
         font-size: 19px;
         width: 97.5px;
         top: 46px;
         left: 161px;
     }
+
     .nickname2 {
         font-size: 23.5px;
         top: 135px;
         left: 156.5px;
         width: 107px;
     }
-    .nickname3{
+
+    .nickname3 {
         font-size: 5.5px;
         top: 240px;
         left: 12.5px;
     }
-    .position-container{
+
+    .position-container {
         width: 100px;
         height: 10px;
     }
+
     .position {
         font-size: 5.5px;
         top: 247.5px;
         left: 12.5px;
         width: 125px;
     }
+
     .copy1-container {
         top: 24px;
     }
@@ -573,7 +689,7 @@ path {
         width: 117.5px;
     }
 
-    .logo-text{
+    .logo-text {
         font-size: 10.5px;
     }
 
@@ -586,11 +702,13 @@ path {
         height: 75px;
         top: 100px;
     }
-    .image-profile-container{
+
+    .imagePreview {
         width: 150px;
         height: 270px;
     }
-    .headline-text{
+
+    .headline-text {
         font-size: 10.5px;
         padding: 2.5px 10px 0px 10px;
         line-height: 14px;
@@ -606,7 +724,7 @@ path {
         border-radius: 18pxpx;
         left: 6.5px;
     }
-    
+
     .custom-btn-text {
         font-size: 8px;
     }
@@ -615,18 +733,19 @@ path {
         top: 13px;
         left: 11px;
     }
-    
+
     .footnote {
         font-size: 9px;
         gap: 2.5px;
     }
-    .footnote span{
+
+    .footnote span {
         font-size: 15px;
     }
-    
-    .ofcourse{
+
+    .ofcourse {
         top: -7.5px;
         font-size: 7.5px;
     }
-    
-  }
+
+}
