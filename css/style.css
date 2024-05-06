@@ -115,12 +115,12 @@ img {
 
 .close-button {
     position: absolute;
-    top: -7px;
-    right: -4px;
+    top: 1px;
+    right: 1px;
     cursor: pointer;
     border-radius: 50%;
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -136,12 +136,12 @@ img {
 
 .lock-button {
     position: absolute;
-    top: -7px;
-    right: 20px;
+    top: 1px;
+    right: 28px;
     cursor: pointer;
     border-radius: 50%;
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -323,7 +323,7 @@ button[type="submit"]:hover {
 .image-size {
     border: 1px solid #ced4da;
     border-radius: 15px;
-    padding: 1rem 0.75rem;
+    padding: 2rem 0.75rem 0.75rem 1rem;
     cursor: grab;
 }
 
@@ -353,8 +353,8 @@ button[type="submit"]:hover {
 
 .decreaseSizeBtn,
 .increaseSizeBtn {
-    width: 35px !important;
-    height: 35px !important;
+    width: 25px !important;
+    height: 25px !important;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex !important;
@@ -372,6 +372,7 @@ button[type="submit"]:hover {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
+    padding: 5px !important;
 }
 
 path {
@@ -640,6 +641,8 @@ path {
     width: 100%;
     border: 1px solid #cecece;
     border-radius: 6px !important;
+    padding: 5px;
+    font-size: 14px;
 }
 
 .NameJob {

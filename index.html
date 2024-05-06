@@ -435,10 +435,11 @@
         function createInputNameAndJob(id) {
             const inputContainer = document.createElement('div');
             inputContainer.classList.add('input-name-job', 'form-floating');
-            inputContainer.style.setProperty('width', '180px');
+            inputContainer.style.setProperty('width', '100%');
 
             const createTextArea = document.createElement('textarea');
-            createTextArea.classList.add('textArea-NameAndJob', 'form-control');
+            createTextArea.classList.add('textArea-NameAndJob');
+            createTextArea.setAttribute('placeholder', 'Enter Name and Job');
             createTextArea.addEventListener('change', function () {
                 const displayNameAndJob = document.getElementById(id).querySelector('p');
                 displayNameAndJob.innerHTML = createTextArea.value;
@@ -450,7 +451,7 @@
             label.style.setProperty('font-size', '14px');
 
             inputContainer.appendChild(createTextArea);
-            inputContainer.appendChild(label);
+            // inputContainer.appendChild(label);
 
             return inputContainer;
 
@@ -518,12 +519,16 @@
 
             const resizeButtons = document.createElement('div');
 
-            resizeButtons.classList.add('d-flex', 'align-items-center', 'gap-2');
+            resizeButtons.classList.add('d-flex', 'align-items-center', 'gap-1');
+            resizeButtons.style.setProperty('position', 'absolute');
+            resizeButtons.style.setProperty('top', '1px');
+            resizeButtons.style.setProperty('right', '56px');
 
             const span = document.createElement('span');
             span.id = 'currentSize';
             span.textContent = '100%';
             span.style.setProperty('pointer-events', 'none');
+            span.style.setProperty('font-size', '14px');
 
             const decreaseButton = document.createElement('button');
             decreaseButton.classList.add('btn', 'btn-primary', 'rounded-circle', 'decreaseSizeBtn');
