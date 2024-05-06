@@ -341,6 +341,19 @@ button[type="submit"]:hover {
     transform: translateX(-50%);
 }
 
+.imageName {
+    display: inline-block;
+    max-width: 15ch;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: absolute;
+    font-size: 12px;
+    font-weight: 600;
+    top: 5px;
+    left: 5px;
+}
+
 .resizable-container-collection {
     border: 2px dashed #cecece;
     border-radius: 10px;
@@ -648,12 +661,12 @@ path {
 .NameJob {
     font-size: 12px;
     color: white;
-    background-color: rgb(0 0 0 / 60%);
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
     word-wrap: break-word;
     white-space: pre-wrap;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 1);
 }
 
 
