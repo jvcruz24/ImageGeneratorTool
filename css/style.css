@@ -115,19 +115,44 @@ img {
 
 .close-button {
     position: absolute;
-    top: -14px;
+    top: -7px;
     right: -4px;
     cursor: pointer;
-    font-size: 22px;
-    font-weight: bold;
-    color: red;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     z-index: 1;
+    background-color: #ff414d;
 }
 
 .close-button svg path {
     width: 25px;
     height: auto;
-    fill: #b12b34;
+    fill: #fff;
+}
+
+.lock-button {
+    position: absolute;
+    top: -7px;
+    right: 20px;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    background-color: #ff414d;
+}
+
+.lock-button svg path {
+    width: 25px;
+    height: auto;
+    fill: #fff;
 }
 
 .nickname {
@@ -299,6 +324,12 @@ button[type="submit"]:hover {
     border: 1px solid #ced4da;
     border-radius: 15px;
     padding: 1rem 0.75rem;
+    cursor: grab;
+}
+
+
+.image-size:hover {
+    ursor: grabbing;
 }
 
 .image-name {
@@ -308,14 +339,6 @@ button[type="submit"]:hover {
     font-size: 9px;
     text-transform: uppercase;
     transform: translateX(-50%);
-}
-
-.stackable-div {
-    cursor: grab;
-}
-
-.stackable-div.dragging {
-    opacity: 0.5;
 }
 
 .resizable-container-collection {
@@ -612,6 +635,24 @@ path {
     text-align: center;
     width: 100%;
 }
+
+.textArea-NameAndJob {
+    width: 100%;
+    border: 1px solid #cecece;
+    border-radius: 6px !important;
+}
+
+.NameJob {
+    font-size: 12px;
+    color: white;
+    background-color: rgb(0 0 0 / 60%);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
+
 
 /* @media screen and (max-width: 572px) {
     #image-generator-container {

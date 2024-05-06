@@ -4,73 +4,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Draggable & Stackable Divs</title>
+    <title>Stackable and Reorderable Divs</title>
+    <link rel="stylesheet" href="style.css">
     <style>
-        .stackable-container {
+        .container {
             display: flex;
-            flex-wrap: wrap;
-            padding: 10px;
+            flex-direction: column;
+            width: 200px;
             border: 1px solid #ccc;
-            margin-bottom: 10px;
+            padding: 10px;
         }
 
         .stackable-div {
-            width: 150px;
-            height: 100px;
-            margin: 5px;
+            margin: 5px 0;
             padding: 10px;
             border: 1px solid #ddd;
-            cursor: grab;
+            position: relative;
+            /* Required for arrow positioning */
         }
 
-        .stackable-div.dragging {
-            opacity: 0.5;
+        .stackable-div::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 5px;
+            /* Style the arrows here */
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-bottom: 10px solid #ccc;
+            /* Down arrow */
+        }
+
+        .stackable-div:hover::after {
+            border-bottom: 0;
+            /* Remove down arrow on hover */
+            border-top: 10px solid #ccc;
+            /* Up arrow on hover */
         }
     </style>
 </head>
 
 <body>
-    <div class="stackable-container">
-        <div class="stackable-div" draggable="true">Item 1</div>
-        <div class="stackable-div" draggable="true">Item 2</div>
-        <div class="stackable-div" draggable="true">Item 3</div>
+    <div class="container">
+        <div class="stackable-div" draggable="true">Div 1</div>
+        <div class="stackable-div" draggable="true">Div 2</div>
+        <div class="stackable-div" draggable="true">Div 3</div>
+        <div class="stackable-div" draggable="true">Div 4</div>
     </div>
+
+
     <script>
-        const stackableContainers = document.querySelectorAll(".stackable-container");
+        const container = document.querySelector('.container');
+        const stackableDivs = container.querySelectorAll('.stackable-div');
+
+        stackableDivs.forEach(div => {
+            div.addEventListener('dragstart', dragStart);
+            div.addEventListener('dragover', dragOver);
+            div.addEventListener('drop', drop);
+            div.addEventListener('click', handleArrowClick);
+        });
+
+        let draggedDiv;
 
         function dragStart(event) {
-            event.dataTransfer.setData("text/plain", event.target.id); // Use ID to track element
+            draggedDiv = event.target;
+            event.dataTransfer.effectAllowed = 'move';
         }
 
-        function dragEnd(event) {
-            event.target.classList.remove("dragging");
-        }
-
-        function allowDrop(event) {
+        function dragOver(event) {
             event.preventDefault();
-        }
-
-        function drop(event) {
-            const sourceId = event.dataTransfer.getData("text/plain");
-            const sourceItem = document.getElementById(sourceId);
-            const targetContainer = event.target.parentNode;
-
-            if (event.target !== event.currentTarget && sourceItem) {
-                targetContainer.appendChild(sourceItem); // Move the original element
+            if (draggedDiv !== event.target) {
+                event.target.style.border = '2px dashed #ccc';
             }
         }
 
-        stackableContainers.forEach(container => {
-            container.addEventListener("dragover", allowDrop);
-            container.addEventListener("drop", drop);
-        });
+        function drop(event) {
+            event.preventDefault();
+            if (draggedDiv !== event.target) {
+                container.appendChild(draggedDiv);
+                const draggedIndex = Array.from(container.children).indexOf(draggedDiv);
+                const targetIndex = Array.from(container.children).indexOf(event.target);
+                if (draggedIndex > targetIndex) {
+                    container.insertBefore(draggedDiv, event.target.nextSibling);
+                } else {
+                    container.insertBefore(draggedDiv, event.target);
+                }
+            }
+            event.target.style.border = '';
+        }
 
-        const stackableDivs = document.querySelectorAll(".stackable-div");
-        stackableDivs.forEach(div => {
-            div.id = Math.random().toString(36).substring(2, 15); // Assign unique ID
-            div.addEventListener("dragstart", dragStart);
-            div.addEventListener("dragend", dragEnd);
-        });
+        function handleArrowClick(event) {
+            const clickedDiv = event.target;
+            const clickedDivIndex = Array.from(container.children).indexOf(clickedDiv);
+
+            if (event.offsetY < clickedDiv.offsetHeight / 3) { // Clicked on top third
+                // Move Up
+                if (clickedDivIndex > 0) {
+                    container.insertBefore(clickedDiv, clickedDiv.previousSibling);
+                }
+            } else { // Clicked on bottom two-thirds
+                // Move Down
+                if (clickedDivIndex < container.children.length - 1) {
+                    container.insertBefore(clickedDiv, clickedDiv.nextSibling.nextSibling);
+                }
+            }
+        }
 
 
     </script>

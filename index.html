@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image Generator Tool</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="normalize.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/normalize.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
@@ -23,21 +23,21 @@
                 <div class='d-flex justify-content-start gap-3 mb-3'>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"
-                            checked onchange="updateText()">
+                            checked onchange="setTextContent()">
                         <label class="form-check-label" for="flexRadioDefault1">
                             She
                         </label>
                     </div>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"
-                            onchange="updateText()">
+                            onchange="setTextContent()">
                         <label class="form-check-label" for="flexRadioDefault2">
                             He
                         </label>
                     </div>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3"
-                            onchange="updateText()">
+                            onchange="setTextContent()">
                         <label class="form-check-label" for="flexRadioDefault3">
                             They
                         </label>
@@ -53,12 +53,12 @@
                         placeholder="Enter position" maxlength="70" rows='2'></textarea>
                     <label for="headlineInput">Enter Text</label>
                 </div>
-                <div class="form-floating mb-3">
+                <div class="form-floating mb-3" style='display: none;'>
                     <input type="text" class="form-control" id="fullNameInput" placeholder="Enter fullName"
                         maxlength="50">
                     <label for="fullNameInput">Enter Fullname</label>
                 </div>
-                <div class="form-floating mb-3">
+                <div class="form-floating mb-3" style='display: none;'>
                     <textarea type="text" class="form-control textarea-position" id="positionInput"
                         placeholder="Enter position" maxlength="50" rows='2'></textarea>
                     <label for="positionInput">Enter Position</label>
@@ -133,33 +133,6 @@
                     </div>
                 </div>
             </div>
-
-            <div class='template-container h-100 flex-sm-row flex-md-column w-sm-100' style='display: none;'>
-                <div class='template-image' onclick='updateDefaultContent(this)'>
-                    <img src="https://raw.githubusercontent.com/jvcruz24/ImageGeneratorTool/main/background.jpg"
-                        alt="template" class="template" crossorigin="anonymous">
-                </div>
-                <div class='template-image' onclick="updateHeadline('headline_1')">
-                    <img src="https://raw.githubusercontent.com/jvcruz24/ImageGeneratorTool/main/background.jpg"
-                        alt="template" class="template" crossorigin="anonymous">
-                    <img src="headline_1.png" alt="template-img">
-                </div>
-                <div class='template-image' onclick="updateHeadline('headline_2')">
-                    <img src="https://raw.githubusercontent.com/jvcruz24/ImageGeneratorTool/main/background.jpg"
-                        alt="template" class="template" crossorigin="anonymous">
-                    <img src="headline_2.png" alt="template-img">
-                </div>
-                <div class='template-image' onclick="updateHeadline('headline_3')">
-                    <img src="https://raw.githubusercontent.com/jvcruz24/ImageGeneratorTool/main/background.jpg"
-                        alt="template" class="template" crossorigin="anonymous">
-                    <img src="headline_3.png" alt="template-img">
-                </div>
-                <div class='template-image' onclick="updateHeadline('headline_4')">
-                    <img src="https://raw.githubusercontent.com/jvcruz24/ImageGeneratorTool/main/background.jpg"
-                        alt="template" class="template" crossorigin="anonymous">
-                    <img src="headline_4.png" alt="template-img">
-                </div>
-            </div>
         </div>
 
     </div>
@@ -199,7 +172,6 @@
 
             // Update displayed text on input change
             function onInputChange(event) {
-                console.log(event.target.id)
                 const fieldName = event.target.id;
                 const uppercaseValue = event.target.value.toUpperCase();
                 displays[fieldName.replace('Input', '')].textContent = uppercaseValue;
@@ -291,32 +263,10 @@
             fileInput.click();
         }
 
-        function dragStart(event) {
-            event.dataTransfer.setData("text/plain", event.target.id); // Use ID to track element
-        }
-
-        function dragEnd(event) {
-            event.target.classList.remove("dragging");
-        }
-
-        function allowDrop(event) {
-            event.preventDefault();
-        }
-
-        function drop(event) {
-            const sourceId = event.dataTransfer.getData("text/plain");
-            const sourceItem = document.getElementById(sourceId);
-            const targetContainer = event.target.parentNode;
-
-            if (event.target !== event.currentTarget && sourceItem) {
-                targetContainer.appendChild(sourceItem); // Move the original element
-            }
-        }
-
 
         fileInput.addEventListener('change', function (event) {
             const files = event.target.files; // Get uploaded files
-
+            const filesLength = files.length;
             for (let i = 0; i < files.length; i++) {
                 const file = files[i];
                 const reader = new FileReader();
@@ -331,15 +281,20 @@
                     imgContainer.classList.add('imageContainer', 'stackable-div');
                     imgContainer.draggable = true; // Enable dragging
                     imgContainer.id = `image-container-${imageCount}`; // Unique ID
+                    imgContainer.style.setProperty('z-index', filesLength - i);
 
                     const img = document.createElement('img');
                     img.src = event.target.result;
                     imgContainer.style.width = currentWidth + '%';
                     imgContainer.appendChild(img);
 
-
+                    const p = document.createElement('p');
+                    p.classList.add('NameJob');
+                    p.setAttribute('draggable', true);
+                    p.innerHTML = 'Edit Name And Job';
+                    imgContainer.appendChild(p);
                     // Add Drag Functionality:
-                    dragElement(imgContainer);
+                    dragImage(p, true);
 
                     // Add Image Size Controller Functionality
                     createImageSizeControl(resizeCollection, imgContainer, currentWidth, maxWidth);
@@ -354,15 +309,24 @@
             }
         });
 
-        function dragElement(elmnt) {
-            console.log(elmnt);
+
+        function dragImage(elmnt, enable) {
             var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
             if (document.getElementById(elmnt.id + "header")) {
                 // if present, the header is where you move the DIV from:
-                document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+                if (enable) {
+                    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+                } else {
+                    document.getElementById(elmnt.id + "header").onmousedown = null;
+                }
             } else {
                 // otherwise, move the DIV from anywhere inside the DIV:
-                elmnt.onmousedown = dragMouseDown;
+                if (enable) {
+
+                    elmnt.onmousedown = dragMouseDown;
+                } else {
+                    elmnt.onmousedown = null;
+                }
             }
 
             function dragMouseDown(e) {
@@ -371,12 +335,12 @@
                 // get the mouse cursor position at startup:
                 pos3 = e.clientX;
                 pos4 = e.clientY;
-                document.onmouseup = closeDragElement;
+                document.onmouseup = closeDragImage;
                 // call a function whenever the cursor moves:
-                document.onmousemove = elementDrag;
+                document.onmousemove = imageDrag;
             }
 
-            function elementDrag(e) {
+            function imageDrag(e) {
                 e = e || window.event;
                 e.preventDefault();
                 // calculate the new cursor position:
@@ -389,31 +353,107 @@
                 elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
             }
 
-            function closeDragElement() {
+            function closeDragImage() {
                 // stop moving when mouse button is released:
                 document.onmouseup = null;
                 document.onmousemove = null;
             }
         }
 
-
+        let draggedIndex;
+        let isDragging = false;
         function createImageSizeControl(resizeCollection, imgContainer, currentWidth, maxWidth) {
             const imageSizerContainer = document.createElement('div');
-            imageSizerContainer.classList.add('image-size', 'd-flex', 'justify-content-between', 'align-items-center', 'mb-3', 'position-relative', 'stackable-div');
+            imageSizerContainer.classList.add('image-size', 'd-flex', 'justify-content-between', 'align-items-center', 'mb-3', 'position-relative');
+            imageSizerContainer.draggable = true;
+            imageSizerContainer.addEventListener('dragstart', dragStart);
+            imageSizerContainer.addEventListener('dragover', dragOver);
+            imageSizerContainer.addEventListener('drop', drop);
+            // imageSizerContainer.addEventListener('click', handleArrowClick);
+            // imageSizerContainer.style.zIndex = highestZIndex;
 
             const span = document.createElement('span');
-            span.classList.add('image-name')
+            span.classList.add('image-name', 'd-none')
             span.textContent = imgContainer.id;
 
             const buttonCloseControl = createRemoveButton(imageSizerContainer, imgContainer);
-            const indexBtnControl = createIndexButton();
+            const buttonToggleLock = createToggleLock(imageSizerContainer, imgContainer);
+            // const indexBtnControl = createIndexButton();
+            const inputNameAndJob = createInputNameAndJob(imgContainer.id);
             const buttonSizeControl = createResizeButton(imgContainer, currentWidth, maxWidth);
-            imageSizerContainer.appendChild(span);
-            imageSizerContainer.appendChild(buttonCloseControl)
-            imageSizerContainer.appendChild(indexBtnControl);
-            imageSizerContainer.appendChild(buttonSizeControl);
+            imageSizerContainer.append(span, buttonCloseControl, inputNameAndJob, buttonSizeControl, buttonToggleLock);
 
             resizeCollection.appendChild(imageSizerContainer);
+
+        }
+        function dragStart(event) {
+            draggedDiv = event.target;
+            event.dataTransfer.effectAllowed = 'move'; // Set allowed effect to 'move'
+        }
+
+        function dragOver(event) {
+            event.preventDefault();
+            if (draggedDiv !== event.target) {
+                // event.target.style.border = '2px dashed #ccc';
+                // Stop propagation when hovering over a button inside the div
+                if (event.target.tagName === 'BUTTON') {
+                    event.stopPropagation();
+                }
+            }
+        }
+
+        function drop(event) {
+            event.preventDefault();
+            if (draggedDiv !== event.target) {
+                resizeCollection.appendChild(draggedDiv); // Append dragged div to container
+                const draggedIndex = Array.from(resizeCollection.children).indexOf(draggedDiv);
+                const targetIndex = Array.from(resizeCollection.children).indexOf(event.target);
+                if (draggedIndex > targetIndex) {
+                    resizeCollection.insertBefore(draggedDiv, event.target.nextSibling);
+                } else {
+                    resizeCollection.insertBefore(draggedDiv, event.target);
+                }
+                setIndexes();
+            }
+        }
+
+        function setIndexes() {
+            if (resizeCollection) {
+                const childArray = Array.from(resizeCollection.children);
+                const startIndex = childArray.length;
+                childArray.forEach((child, index) => {
+                    const span = child.querySelector('span').innerHTML;
+                    // child.style.setProperty('--index', startIndex - index); // Set the index based on starting value
+                    document.getElementById(span).style.setProperty('z-index', startIndex - index);
+                    // console.log(`Child ${startIndex - index} span innerHTML: ${span}`); // Log the innerHTML
+                });
+            } else {
+                console.error('Element with ID "resizeCollection" not found.');
+            }
+        }
+
+        function createInputNameAndJob(id) {
+            const inputContainer = document.createElement('div');
+            inputContainer.classList.add('input-name-job', 'form-floating');
+            inputContainer.style.setProperty('width', '180px');
+
+            const createTextArea = document.createElement('textarea');
+            createTextArea.classList.add('textArea-NameAndJob', 'form-control');
+            createTextArea.addEventListener('change', function () {
+                const displayNameAndJob = document.getElementById(id).querySelector('p');
+                displayNameAndJob.innerHTML = createTextArea.value;
+            });
+
+            const label = document.createElement('label');
+            label.innerHTML = 'Enter name and job';
+            label.setAttribute('for', createTextArea.id);
+            label.style.setProperty('font-size', '14px');
+
+            inputContainer.appendChild(createTextArea);
+            inputContainer.appendChild(label);
+
+            return inputContainer;
+
         }
 
         function createIndexButton() {
@@ -440,13 +480,37 @@
 
             const closeButton = document.createElement('span');
             closeButton.classList.add('close-button');
-            closeButton.innerHTML = createTrashIcon();
+            closeButton.innerHTML = createXIcon();
             closeButton.addEventListener('click', function () {
                 imgContainer.parentElement.removeChild(imgContainer);
                 imageSizerContainer.parentElement.removeChild(imageSizerContainer);
             });
 
             return closeButton;
+
+        }
+
+        function createToggleLock(imageSizerContainer, imgContainer) {
+
+            const toggleButton = document.createElement('span');
+            toggleButton.classList.add('lock-button');
+            // Initially set the icon to unlock
+            let isLocked = true;
+            toggleButton.innerHTML = createUnlockIcon();
+            dragImage(imgContainer, isLocked);
+            toggleButton.addEventListener('click', function () {
+                isLocked = !isLocked; // Toggle lock state on each click
+
+                if (isLocked) {
+                    toggleButton.innerHTML = createUnlockIcon();
+                    dragImage(imgContainer, isLocked);
+                } else {
+                    toggleButton.innerHTML = createLockIcon();
+                    dragImage(imgContainer, isLocked);
+                }
+            });
+
+            return toggleButton;
 
         }
 
@@ -459,6 +523,7 @@
             const span = document.createElement('span');
             span.id = 'currentSize';
             span.textContent = '100%';
+            span.style.setProperty('pointer-events', 'none');
 
             const decreaseButton = document.createElement('button');
             decreaseButton.classList.add('btn', 'btn-primary', 'rounded-circle', 'decreaseSizeBtn');
@@ -523,35 +588,30 @@
             </svg>`;
         }
 
+        function createXIcon() {
+            return `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+            </svg>`;
+        }
+
+        function createLockIcon() {
+            return `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">
+            <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2m3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2"/>
+            </svg>`;
+        }
+
+        function createUnlockIcon() {
+            return `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-unlock-fill" viewBox="0 0 16 16">
+            <path d="M11 1a2 2 0 0 0-2 2v4a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h5V3a3 3 0 0 1 6 0v4a.5.5 0 0 1-1 0V3a2 2 0 0 0-2-2"/>
+            </svg>`;
+        }
+
     </script>
 
 
     <script>
 
-
-        // const nickname2 = document.getElementById('nickname2');
-
-        // function updateDefaultContent(element) {
-        //     var divContent = `
-        //     <div class='divider-container'>
-        //         <img src="https://raw.githubusercontent.com/jvcruz24/ImageGeneratorTool/main/were.png"
-        //             alt="divider" class='divider'>
-        //     </div>
-        //     <div class='ten-xing-container'>
-        //         <p class='ten-xing shifted-text'>10xing</p>
-        //     </div>
-        //     <div class='today-container'>
-        //         <p class='today shifted-text'>TODAY</p>
-        //     </div>`;
-
-
-        //     var divheadline = document.getElementById('headline-container');
-        //     divheadline.innerHTML = divContent;
-        //     nickname2.style.display = 'block';
-        // }
-
-
-        function updateText() {
+        function setTextContent() {
             var radio1 = document.getElementById('flexRadioDefault1');
             var radio2 = document.getElementById('flexRadioDefault2');
             var radio3 = document.getElementById('flexRadioDefault3');
@@ -561,59 +621,20 @@
             if (radio1.checked) {
                 copyText.innerHTML = "<span>She</span> is a top talent";
                 copyText1.innerHTML = "This is";
+                document.getElementById('nicknameInput').setAttribute('placeholder', 'Enter Nickname');
+                document.querySelector("label[for='nicknameInput']").innerHTML = 'Enter Nickname';
             } else if (radio2.checked) {
                 copyText.innerHTML = "<span>He</span> is a top talent";
                 copyText1.innerHTML = "This is";
+                document.getElementById('nicknameInput').setAttribute('placeholder', 'Enter Nickname');
+                document.querySelector("label[for='nicknameInput']").innerHTML = 'Enter Nickname';
             } else if (radio3.checked) {
                 copyText.innerHTML = "<span>The're</span> top talents";
                 copyText1.innerHTML = "Here's our";
+                document.getElementById('nicknameInput').setAttribute('placeholder', 'Enter Team Name');
+                document.querySelector("label[for='nicknameInput']").innerHTML = 'Enter Team Name';
             }
         }
-        // function updateHeadline(imgSrc) {
-        //     var divHeadline = document.getElementById('headline-container');
-        //     var radio1 = document.getElementById('flexRadioDefault1');
-        //     var headlineData = {
-        //         'headline_1': {
-        //             'text': "Not only did <span class='gender lowercase'></span> <span class='shifted-text-3' style='font-size:1.5rem'>10x</span> creation save us <span class='shifted-text-3' style='font-size:1.5rem'>8,000</span> precious hours, but it also translated into a cool <span class='shifted-text-3' style='font-size:1.5rem'>$10,000</span> in savings!",
-        //             'fontSize': '1rem',
-        //             'lineHeight': '24px'
-        //         },
-        //         'headline_2': {
-        //             'text': "<span class='gender'></span> brilliant <span class='shifted-text-3' style='font-size:1.5rem'>10x</span> creation saved us a staggering <span class='shifted-text-3' style='font-size:1.5rem'>8,000</span> hours of work! That's like getting an extra year of productivity out of thin air!",
-        //             'fontSize': '1rem',
-        //             'lineHeight': '21px'
-        //         },
-        //         'headline_3': {
-        //             'text': "<span class='gender'></span> incredible <span class='shifted-text-4' style='font-size:1.2rem'>10x</span> creation not only saved us a massive <span class='shifted-text-4' style='font-size:1.2rem'>8,000</span> hours of work but also put an extra <span class='shifted-text-4' style='font-size:1.2rem'>$10,000</span> in our pockets. It's like hitting the jackpot of productivity and savings all at once.",
-        //             'fontSize': '0.8rem',
-        //             'lineHeight': '18px'
-        //         },
-        //         'headline_4': {
-        //             'text': "<span class='gender'></span> genius <span class='shifted-text-3' style='font-size:1.5rem'>10x</span> creation saved us <span class='shifted-text-3' style='font-size:1.5rem'>8,000</span> hours and productivity jackpot worth <span class='shifted-text-3' style='font-size:1.5rem'>$10,000</span>.",
-        //             'fontSize': '1rem',
-        //             'lineHeight': '26px'
-        //         }
-        //     };
-
-        //     if (headlineData.hasOwnProperty(imgSrc)) {
-        //         var headline = headlineData[imgSrc];
-        //         divHeadline.innerHTML = `<p class='shifted-text-2'
-        //     style='top: 10px; width: 100%; height: auto; text-align: center; color: #e02c4a; font-weight: 800; font-size: ${headline.fontSize}; padding: 0px 0px; top: 50%; transform: translateY(-50%); line-height: ${headline.lineHeight};'>${headline.text}</p>`;
-        //     }
-
-        //     var genderSpans = document.querySelectorAll('.gender');
-        //     if (radio1.checked) {
-        //         genderSpans.forEach(span => {
-        //             span.innerHTML = "Her";
-        //         });
-        //     } else {
-        //         genderSpans.forEach(span => {
-        //             span.innerHTML = "He";
-        //         });
-        //     }
-
-        //     nickname2.style.display = 'none';
-        // }
     </script>
 
 </body>
