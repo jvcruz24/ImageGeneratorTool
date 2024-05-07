@@ -184,6 +184,7 @@
 
             // Download canvas using html2canvas
             function downloadCanvas() {
+
                 html2canvas(imageContainer, {
                     scale: 2,
                     useCORS: true,
@@ -220,7 +221,9 @@
                                         element.style.padding = '35px 20px 0px 20px';
                                         break;
                                     case 'downward3':
-                                        element.style.top = '8px';
+                                        const getCurrentPosition = element.style.top;
+                                        const numberValue = parseFloat(getCurrentPosition.replace("px", ""));
+                                        element.style.top = numberValue + 10 + 'px';
                                         break;
                                 }
                             });
