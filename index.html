@@ -226,6 +226,7 @@
                                         const numberValueTop = parseFloat(getCurrentPositionTop.replace("px", ""));
                                         const numberValueLeft = parseFloat(getCurrentPositionLeft.replace("px", ""));
                                         element.style.top = numberValueTop + 10 + 'px';
+                                        element.style.backgroundColor = 'transparent';
                                         const id = element.id;
                                         const newElement = document.createElement('span');
                                         newElement.style.width = element.offsetWidth + 'px';
