@@ -63,9 +63,9 @@
                         placeholder="Enter position" maxlength="50" rows='2'></textarea>
                     <label for="positionInput">Enter Position</label>
                 </div>
-                <div class="dropzone mb-3" id="dropzone" onclick='triggerFileInput()'>
+                <div class="dropzone mb-3" id="dropzone">
                     <span>Drag & Drop Image here or Click to upload</span>
-                    <input type="file" id="fileInput" style="display: none;" accept="image/*" multiple>
+                    <input type="file" id="imageUploader" style="display: none;" accept="image/*" multiple>
                 </div>
                 <div style='width: 100%; font-size: 12px; height: 20px;'>
                     <p>**Lock image ** (to edit text position)</p>
@@ -267,13 +267,14 @@
         let imageCount = 0;
         const profile = document.getElementById('profile');
         const dropzone = document.getElementById('dropzone');
-        const fileInput = document.getElementById('fileInput');
+        const uploadedImage = document.getElementById('imageUploader');
         const imagePreview = document.getElementById('imagePreview');
         const resizeCollection = document.getElementById('resizable-container-collection');
 
-        function triggerFileInput() {
-            fileInput.click();
-        }
+        dropzone.addEventListener('click', (e) => {
+            uploadedImage.click();
+            uploadedImage.dispatchEvent(new Event('click'));
+        });
 
         dropzone.addEventListener('dragover', (e) => {
             e.preventDefault();
@@ -291,20 +292,27 @@
             // Get the dropped files from the event object
             const files = e.dataTransfer.files;
 
-            // Set the files property of the fileInput element
-            fileInput.files = files;
+            // Set the files property of the uploadedImage element
+            uploadedImage.files = files;
 
-            // Trigger the change event on the fileInput element
-            fileInput.dispatchEvent(new Event('change'));
+            // Trigger the change event on the uploadedImage element
+            uploadedImage.dispatchEvent(new Event('change'));
         });
 
 
-        fileInput.addEventListener('change', function (event) {
+        uploadedImage.addEventListener('change', function (event) {
             const files = event.target.files; // Get uploaded files
             const filesLength = files.length;
+            processFiles(files, filesLength, setIndexes);
+
+        });
+
+
+        function processFiles(files, filesLength, callback) {
             for (let i = 0; i < files.length; i++) {
                 const file = files[i];
                 const reader = new FileReader();
+
                 reader.onload = function (event) {
                     fileName = file.name;
                     imageCount++; // Increment counter for unique ID
@@ -325,7 +333,7 @@
                     const p = document.createElement('p');
                     p.classList.add('NameJob', 'shifted-text-6');
                     p.setAttribute('draggable', true);
-                    p.innerHTML = 'Enter Text';
+                    p.innerHTML = 'Enter Name and Role';
                     p.id = "cred" + i;
                     imgContainer.appendChild(p);
                     // Add Drag Functionality:
@@ -336,13 +344,12 @@
 
                     imagePreview.appendChild(imgContainer);
 
-
-
                 };
-
                 reader.readAsDataURL(file);
             }
-        });
+            // Call the callback function after processing
+            callback();
+        }
 
 
         function dragImage(elmnt, enable) {
@@ -516,7 +523,7 @@
 
             const createTextArea = document.createElement('textarea');
             createTextArea.classList.add('textArea-NameAndJob');
-            createTextArea.setAttribute('placeholder', 'Enter Name and Job');
+            createTextArea.setAttribute('placeholder', 'Enter Name and Role');
             createTextArea.addEventListener('change', function () {
                 const displayNameAndJob = document.getElementById(id).querySelector('p');
                 displayNameAndJob.innerHTML = createTextArea.value;
