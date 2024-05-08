@@ -331,6 +331,10 @@ button[type="submit"]:hover {
     opacity: 0.6;
 }
 
+.image-size.dragging :where(.image-size > *) {
+    opacity: 0;
+}
+
 .image-size:hover {
     cursor: grabbing;
 }
