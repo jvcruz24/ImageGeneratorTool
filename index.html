@@ -64,11 +64,11 @@
                     <label for="positionInput">Enter Position</label>
                 </div>
                 <div class="dropzone mb-3" id="dropzone" onclick='triggerFileInput()'>
-                    <span>Drag & Drop image here or click to upload</span>
+                    <span>Drag & Drop Image here or Click to upload</span>
                     <input type="file" id="fileInput" style="display: none;" accept="image/*" multiple>
                 </div>
                 <div style='width: 100%; font-size: 12px; height: 20px;'>
-                    <p>*Note Lock the picture for reposition of text</p>
+                    <p>**Lock image ** (to edit text position)</p>
                 </div>
                 <div id='resizable-container-collection' class='resizable-container-collection'>
                 </div>
@@ -271,6 +271,10 @@
         const imagePreview = document.getElementById('imagePreview');
         const resizeCollection = document.getElementById('resizable-container-collection');
 
+        function triggerFileInput() {
+            fileInput.click();
+        }
+
         dropzone.addEventListener('dragover', (e) => {
             e.preventDefault();
             dropzone.classList.add('highlight');
@@ -283,12 +287,16 @@
         dropzone.addEventListener('drop', (e) => {
             e.preventDefault();
             dropzone.classList.remove('highlight');
-            handleDroppedFiles(e.dataTransfer.files);
-        });
 
-        function triggerFileInput() {
-            fileInput.click();
-        }
+            // Get the dropped files from the event object
+            const files = e.dataTransfer.files;
+
+            // Set the files property of the fileInput element
+            fileInput.files = files;
+
+            // Trigger the change event on the fileInput element
+            fileInput.dispatchEvent(new Event('change'));
+        });
 
 
         fileInput.addEventListener('change', function (event) {
