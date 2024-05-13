@@ -19,8 +19,77 @@
     <div id="image-generator-container"
         class='image-generator-container container d-flex flex-column justify-content-center align-items-center mt-5'>
         <div class="d-lg-flex flex-lg-row justify-content-center align-items-start gap-5">
-            <div class='d-flex flex-column'>
-                <div class='d-flex justify-content-start gap-3 mb-3'>
+            <div class='d-flex flex-column' style='display: none !important;'>
+                <!-- <div class='d-flex justify-content-start gap-3 mb-3'>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"
+                            checked onchange="setTextContent()">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                            She
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"
+                            onchange="setTextContent()">
+                        <label class="form-check-label" for="flexRadioDefault2">
+                            He
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3"
+                            onchange="setTextContent()">
+                        <label class="form-check-label" for="flexRadioDefault3">
+                            They
+                        </label>
+                    </div>
+                </div> -->
+                <!-- <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="nicknameInput" placeholder="Enter nickname"
+                        maxlength="8">
+                    <label for="nicknameInput">Enter Nickname</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <textarea type="text" class="form-control textarea-position headlineInput" id="headlineInput"
+                        placeholder="Enter position" maxlength="70" rows='2'></textarea>
+                    <label for="headlineInput">Enter Text</label>
+                </div>
+                <div class="form-floating mb-3" style='display: none;'>
+                    <input type="text" class="form-control" id="fullNameInput" placeholder="Enter fullName"
+                        maxlength="50">
+                    <label for="fullNameInput">Enter Fullname</label>
+                </div>
+                <div class="form-floating mb-3" style='display: none;'>
+                    <textarea type="text" class="form-control textarea-position" id="positionInput"
+                        placeholder="Enter position" maxlength="50" rows='2'></textarea>
+                    <label for="positionInput">Enter Position</label>
+                </div> -->
+                <!-- <div class="dropzone mb-3" id="dropzone">
+                    <span>Drag & Drop Image here or Click to upload</span>
+                    <input type="file" id="imageUploader" style="display: none;" accept="image/*" multiple>
+                </div> -->
+                <div style='width: 100%; font-size: 12px; height: 20px;'>
+                    <p>**Lock image ** (to edit text position)</p>
+                </div>
+
+            </div>
+
+            <div class="dropzone" id="dropzone">
+                <!-- <span>Drag & Drop Image here or Click + to upload</span> -->
+                <img src="plus.svg" alt="add Icon" id='imageUploaderBtn' class='imageUploaderBtn'>
+                <input type="file" id="imageUploader" style="display: none;" accept="image/*" multiple>
+                <div id='resizable-container-collection' class='resizable-container-collection'>
+                </div>
+            </div>
+            <div class=' d-flex justify-content-center flex-column mt-lg-0 mt-5'>
+                <div id='contentEditor' class='contentEditor'>
+                    <input type="text" name="name" id="nameInput" class='nameInput' placeholder='Edit Me'
+                        autocomplete='off' maxlength='8'>
+                    <div id='contentInputContainer' class='contentInputContainer'>
+                        <textarea type="text" id='contentInput' class='contentInput' maxlength='70'
+                            placeholder='Edit Me'></textarea>
+                    </div>
+                </div>
+                <div class='d-flex justify-content-start gap-3'>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"
                             checked onchange="setTextContent()">
@@ -43,38 +112,6 @@
                         </label>
                     </div>
                 </div>
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="nicknameInput" placeholder="Enter nickname"
-                        maxlength="8">
-                    <label for="nicknameInput">Enter Nickname</label>
-                </div>
-                <div class="form-floating mb-3">
-                    <textarea type="text" class="form-control textarea-position headlineInput" id="headlineInput"
-                        placeholder="Enter position" maxlength="70" rows='2'></textarea>
-                    <label for="headlineInput">Enter Text</label>
-                </div>
-                <div class="form-floating mb-3" style='display: none;'>
-                    <input type="text" class="form-control" id="fullNameInput" placeholder="Enter fullName"
-                        maxlength="50">
-                    <label for="fullNameInput">Enter Fullname</label>
-                </div>
-                <div class="form-floating mb-3" style='display: none;'>
-                    <textarea type="text" class="form-control textarea-position" id="positionInput"
-                        placeholder="Enter position" maxlength="50" rows='2'></textarea>
-                    <label for="positionInput">Enter Position</label>
-                </div>
-                <div class="dropzone mb-3" id="dropzone">
-                    <span>Drag & Drop Image here or Click to upload</span>
-                    <input type="file" id="imageUploader" style="display: none;" accept="image/*" multiple>
-                </div>
-                <div style='width: 100%; font-size: 12px; height: 20px;'>
-                    <p>**Lock image ** (to edit text position)</p>
-                </div>
-                <div id='resizable-container-collection' class='resizable-container-collection'>
-                </div>
-
-            </div>
-            <div class=' d-flex justify-content-center flex-column mt-lg-0 mt-5'>
                 <div class="image-container mb-3" id="imageContainer">
                     <img src="https://raw.githubusercontent.com/jvcruz24/ImageGeneratorTool/main/background.jpg"
                         alt="template" class="template" crossorigin="anonymous">
@@ -87,7 +124,7 @@
                             <p class="logo-text shifted-text">at Wideout.</p>
                         </div>
                         <div class='headline' id='headline-container'>
-                            <p class='shifted-text-5 headline-text' id='headline-text'>
+                            <p class='shifted-text-5 headline-text hidden-text' id='headline-text'>
                             </p>
                         </div>
                         <div class='bottom'>
@@ -108,8 +145,8 @@
                         </div>
                     </div>
 
-                    <p id="nickname" class="input-name nickname shifted-text"></p>
-                    <p id="nickname2" class="input-name nickname2 shifted-text" style='display: none;'></p>
+                    <p id="nickname" class="input-name nickname shifted-text hidden-text"></p>
+                    <p id="nickname2" class="input-name nickname2 shifted-text"></p>
                     <p id="nickname3" class="input-name nickname3"></p>
 
                     <div class='position-container'>
@@ -119,7 +156,6 @@
                 <div class="d-sm-flex justify-content-between align-items-center">
                     <div>
                         <div>
-
                             <!-- <a href="https://www.remove.bg/upload" target='_blank'>Remove BG here.</a> -->
                             <a href="https://new.express.adobe.com/tools/remove-background" target='_blank'>Remove BG
                                 here.</a>
@@ -149,21 +185,18 @@
         integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
+        const textContainer = document.getElementById('contentInputContainer');
+
         document.addEventListener('DOMContentLoaded', function () {
 
             // Get references to all input and display elements
             const inputs = {
-                nickname: document.getElementById('nicknameInput'),
-                fullName: document.getElementById('fullNameInput'),
-                position: document.getElementById('positionInput'),
-                headline: document.getElementById('headlineInput'),
+                nickname: document.getElementById('nameInput'),
+                headline: document.getElementById('contentInput')
             };
             const displays = {
-                nickname: document.getElementById('nickname'),
-                nickname2: document.getElementById('nickname2'),
-                fullName: document.getElementById('nickname3'),
-                position: document.getElementById('position'),
-                headline: document.getElementById('headline-text'),
+                name: document.getElementById('nickname'),
+                content: document.getElementById('headline-text')
             };
             const downloadButton = document.getElementById('downloadButton');
             const imageContainer = document.getElementById('imageContainer');
@@ -175,11 +208,12 @@
 
             // Update displayed text on input change
             function onInputChange(event) {
+                console.log('changing');
                 const fieldName = event.target.id;
                 const uppercaseValue = event.target.value.toUpperCase();
                 displays[fieldName.replace('Input', '')].textContent = uppercaseValue;
-                if (fieldName === 'headlineInput') {
-                    displays.headline.textContent = event.target.value;
+                if (fieldName === 'contentInput') {
+                    displays.content.textContent = event.target.value;
                 }
             }
 
@@ -202,6 +236,7 @@
                             upward2: el.querySelectorAll('.shifted-text-4'),
                             padding: el.querySelectorAll('.shifted-text-5'),
                             downward3: el.querySelectorAll('.shifted-text-6'),
+                            visible: el.querySelectorAll('.hidden-text'),
                         };
                         for (const elementClass in shiftedElements) {
                             shiftedElements[elementClass].forEach(element => {
@@ -241,9 +276,9 @@
                                         console.log(element.parentNode);
                                         // Insert the newElement before the existingElement
                                         element.parentNode.insertBefore(newElement, element);
-
-
-
+                                        break;
+                                    case 'visible':
+                                        element.style.display = 'block';
                                         break;
                                 }
                             });
@@ -268,10 +303,11 @@
         const profile = document.getElementById('profile');
         const dropzone = document.getElementById('dropzone');
         const uploadedImage = document.getElementById('imageUploader');
+        const uploadedImageBtn = document.getElementById('imageUploaderBtn');
         const imagePreview = document.getElementById('imagePreview');
         const resizeCollection = document.getElementById('resizable-container-collection');
 
-        dropzone.addEventListener('click', (e) => {
+        uploadedImageBtn.addEventListener('click', (e) => {
             uploadedImage.click();
             uploadedImage.dispatchEvent(new Event('click'));
         });
@@ -333,14 +369,35 @@
                     const p = document.createElement('p');
                     p.classList.add('NameJob', 'shifted-text-6');
                     p.setAttribute('draggable', true);
+                    p.setAttribute('role', 'textbox')
+                    p.setAttribute('contenteditable', true);
                     p.innerHTML = 'Enter Name and Role';
                     p.id = "cred" + i;
+                    p.addEventListener('click', function () {
+                        dragImage(p, false);
+                    });
+                    p.addEventListener('focusout', function () {
+                        dragImage(p, true);
+                    });
                     imgContainer.appendChild(p);
                     // Add Drag Functionality:
                     dragImage(p, true);
 
+
+                    // const textArea = document.createElement('textarea');
+                    // textArea.classList.add('imageContentInput');
+                    // textArea.type = 'text';
+                    // textArea.setAttribute('draggable', true);
+                    // textArea.setAttribute('placeholder', 'EDIT ME');
+                    // textArea.value = 'EDIT ME';
+                    // imgContainer.appendChild(textArea);
+                    // dragImage(textArea, true);
+
                     // Add Image Size Controller Functionality
-                    createImageSizeControl(resizeCollection, imgContainer, currentWidth, maxWidth, fileName);
+                    createImageSizeControl(resizeCollection, imgContainer, currentWidth, maxWidth, fileName, img.src);
+
+                    const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+                    const popoverInstance = popoverTriggerList.forEach(popoverTrigger => new bootstrap.Popover(popoverTrigger))
 
                     imagePreview.appendChild(imgContainer);
 
@@ -353,6 +410,7 @@
 
 
         function dragImage(elmnt, enable) {
+            console.log(elmnt.tagName);
             var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
             if (document.getElementById(elmnt.id + "header")) {
                 // if present, the header is where you move the DIV from:
@@ -364,7 +422,6 @@
             } else {
                 // otherwise, move the DIV from anywhere inside the DIV:
                 if (enable) {
-
                     elmnt.onmousedown = dragMouseDown;
                 } else {
                     elmnt.onmousedown = null;
@@ -404,15 +461,15 @@
 
         let draggedIndex;
         let isDragging = false;
-        function createImageSizeControl(resizeCollection, imgContainer, currentWidth, maxWidth, fileName) {
+        function createImageSizeControl(resizeCollection, imgContainer, currentWidth, maxWidth, fileName, img) {
             const imageSizerContainer = document.createElement('div');
             imageSizerContainer.classList.add('image-size', 'd-flex', 'justify-content-between', 'align-items-center', 'mb-3', 'position-relative');
             imageSizerContainer.draggable = true;
             imageSizerContainer.addEventListener('dragstart', dragStart);
             imageSizerContainer.addEventListener('dragend', dragEnd);
-            // imageSizerContainer.addEventListener('drop', drop);
-            // imageSizerContainer.addEventListener('click', handleArrowClick);
-            // imageSizerContainer.style.zIndex = highestZIndex;
+            imageSizerContainer.style.width = '100px';
+            imageSizerContainer.style.height = '100px';
+            imageSizerContainer.style.backgroundColor = '#D9D9D9';
 
             const span = document.createElement('span');
             span.classList.add('image-name', 'd-none')
@@ -425,11 +482,24 @@
 
 
             const buttonCloseControl = createRemoveButton(imageSizerContainer, imgContainer);
+            // const buttonEdit = createEditButton(imageSizerContainer, imgContainer);
             const buttonToggleLock = createToggleLock(imageSizerContainer, imgContainer);
             // const indexBtnControl = createIndexButton();
             const inputNameAndJob = createInputNameAndJob(imgContainer.id);
             const buttonSizeControl = createResizeButton(imgContainer, currentWidth, maxWidth);
-            imageSizerContainer.append(span, buttonCloseControl, inputNameAndJob, buttonSizeControl, buttonToggleLock, filename);
+
+            const previewImg = document.createElement('img');
+            previewImg.src = img;
+            previewImg.style.width = 'auto';
+            previewImg.style.height = '80%';
+            previewImg.style.top = '50%';
+            previewImg.style.left = '50%';
+            previewImg.style.transform = 'translate(-50%,-50%)';
+            previewImg.style.pointerEvents = 'none';
+
+
+            // imageSizerContainer.append(span, buttonCloseControl, inputNameAndJob, buttonSizeControl, buttonToggleLock, filename);
+            imageSizerContainer.append(span, previewImg, buttonCloseControl, buttonSizeControl, buttonToggleLock);
 
             resizeCollection.appendChild(imageSizerContainer);
 
@@ -467,7 +537,7 @@
             if (draggedDiv !== event.target) {
                 // event.target.style.border = '2px dashed #ccc';
                 // Stop propagation when hovering over a button inside the div
-                if (event.target.tagName === 'BUTTON') {
+                if (event.target.tagName === 'BUTTON' || event.target.tagName === 'IMG') {
                     event.stopPropagation();
                 }
 
@@ -575,6 +645,28 @@
 
         }
 
+        function createEditButton(imageSizerContainer, imgContainer) {
+            const editButton = document.createElement('span');
+            editButton.classList.add('edit-button');
+            editButton.setAttribute('data-bs-toggle', 'popover');
+            editButton.setAttribute('data-bs-placement', 'left');
+            editButton.setAttribute('data-bs-html', 'true');
+            editButton.setAttribute('data-trigger', 'focus');
+            editButton.setAttribute('data-bs-content',
+                `<div>
+                    <textarea></textarea>
+                </div>`);
+            editButton.innerHTML = createEditIcon();
+            editButton.addEventListener('click', function () {
+                const clickX = event.clientX;
+                const clickY = event.clientY;
+                console.log(clickX + " : " + clickY);
+            });
+
+            return editButton;
+
+        }
+
         function createToggleLock(imageSizerContainer, imgContainer) {
 
             const toggleButton = document.createElement('span');
@@ -603,16 +695,17 @@
 
             const resizeButtons = document.createElement('div');
 
-            resizeButtons.classList.add('d-flex', 'align-items-center', 'gap-1');
+            resizeButtons.classList.add('d-flex', 'align-items-center');
             resizeButtons.style.setProperty('position', 'absolute');
-            resizeButtons.style.setProperty('top', '1px');
-            resizeButtons.style.setProperty('right', '56px');
+            resizeButtons.style.setProperty('top', '-6px');
+            resizeButtons.style.setProperty('left', '-3px');
 
             const span = document.createElement('span');
             span.id = 'currentSize';
             span.textContent = '100%';
             span.style.setProperty('pointer-events', 'none');
             span.style.setProperty('font-size', '14px');
+            span.style.display = 'none';
 
             const decreaseButton = document.createElement('button');
             decreaseButton.classList.add('btn', 'btn-primary', 'rounded-circle', 'decreaseSizeBtn');
@@ -628,7 +721,7 @@
 
 
             const increaseButton = document.createElement('button');
-            increaseButton.classList.add('btn', 'btn-primary', 'rounded-circle', 'increaseSizeBtn');
+            increaseButton.classList.add('btn', 'btn-success', 'rounded-circle', 'increaseSizeBtn');
             increaseButton.id = 'increaseSizeBtn';
             increaseButton.innerHTML = createIncreaseIcon();
             increaseButton.addEventListener('click', function () {
@@ -678,21 +771,34 @@
         }
 
         function createXIcon() {
-            return `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+            return `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
             <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
             </svg>`;
         }
 
         function createLockIcon() {
-            return `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">
-            <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2m3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2"/>
+            return `<svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M34 23H32V19C32 15.1 28.9 12 25 12C21.1 12 18 15.1 18 19V23H16V19C16 14 20 10 25 10C30 10 34 14 34 19V23Z" fill="black"/>
+            <path d="M33 40H17C15.3 40 14 38.7 14 37V25C14 23.3 15.3 22 17 22H33C34.7 22 36 23.3 36 25V37C36 38.7 34.7 40 33 40ZM17 24C16.4 24 16 24.4 16 25V37C16 37.6 16.4 38 17 38H33C33.6 38 34 37.6 34 37V25C34 24.4 33.6 24 33 24H17Z" fill="black"/>
+            <path d="M25 30C26.1046 30 27 29.1046 27 28C27 26.8954 26.1046 26 25 26C23.8954 26 23 26.8954 23 28C23 29.1046 23.8954 30 25 30Z" fill="black"/>
+            <path d="M25.5 28H24.5L23.5 34H26.5L25.5 28Z" fill="black"/>
             </svg>`;
         }
 
         function createUnlockIcon() {
-            return `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-unlock-fill" viewBox="0 0 16 16">
-            <path d="M11 1a2 2 0 0 0-2 2v4a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h5V3a3 3 0 0 1 6 0v4a.5.5 0 0 1-1 0V3a2 2 0 0 0-2-2"/>
+            return `<svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 23H16V19C16 14 20 10 25 10C29.5 10 33.4 13.4 33.9 17.9L31.9 18.1C31.5 14.6 28.5 12 25 12C21.1 12 18 15.1 18 19V23Z" fill="black"/>
+            <path d="M33 40H17C15.3 40 14 38.7 14 37V25C14 23.3 15.3 22 17 22H33C34.7 22 36 23.3 36 25V37C36 38.7 34.7 40 33 40ZM17 24C16.4 24 16 24.4 16 25V37C16 37.6 16.4 38 17 38H33C33.6 38 34 37.6 34 37V25C34 24.4 33.6 24 33 24H17Z" fill="black"/>
+            <path d="M25 30C26.1046 30 27 29.1046 27 28C27 26.8954 26.1046 26 25 26C23.8954 26 23 26.8954 23 28C23 29.1046 23.8954 30 25 30Z" fill="black"/>
+            <path d="M25.5 28H24.5L23.5 34H26.5L25.5 28Z" fill="black"/>
             </svg>`;
+        }
+
+        function createEditIcon() {
+            return `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 0C4.47 0 0 4.47 0 10C0 15.53 4.47 20 10 20C15.53 20 20 15.53 20 10C20 4.47 15.53 0 10 0ZM13.1 5.07C13.24 5.07 13.38 5.12 13.5 5.23L14.77 6.5C15 6.72 15 7.07 14.77 7.28L13.77 8.28L11.72 6.23L12.72 5.23C12.82 5.12 12.96 5.07 13.1 5.07ZM11.13 6.81L13.19 8.87L7.13 14.93H5.07V12.87L11.13 6.81Z" fill="#136FFA"/>
+            </svg>
+            `;
         }
 
     </script>
@@ -710,18 +816,18 @@
             if (radio1.checked) {
                 copyText.innerHTML = "<span>She</span> is a top talent";
                 copyText1.innerHTML = "This is";
-                document.getElementById('nicknameInput').setAttribute('placeholder', 'Enter Nickname');
-                document.querySelector("label[for='nicknameInput']").innerHTML = 'Enter Nickname';
+                // document.getElementById('nameInput').setAttribute('placeholder', 'Enter Nickname');
+                // document.querySelector("label[for='nameInput']").innerHTML = 'Enter Nickname';
             } else if (radio2.checked) {
                 copyText.innerHTML = "<span>He</span> is a top talent";
                 copyText1.innerHTML = "This is";
-                document.getElementById('nicknameInput').setAttribute('placeholder', 'Enter Nickname');
-                document.querySelector("label[for='nicknameInput']").innerHTML = 'Enter Nickname';
+                // document.getElementById('nameInput').setAttribute('placeholder', 'Enter Nickname');
+                // document.querySelector("label[for='nameInput']").innerHTML = 'Enter Nickname';
             } else if (radio3.checked) {
                 copyText.innerHTML = "<span>They're</span> top talents";
                 copyText1.innerHTML = "Here's our";
-                document.getElementById('nicknameInput').setAttribute('placeholder', 'Enter Team Name');
-                document.querySelector("label[for='nicknameInput']").innerHTML = 'Enter Team Name';
+                // document.getElementById('nameInput').setAttribute('placeholder', 'Enter Team Name');
+                // document.querySelector("label[for='nameInput']").innerHTML = 'Enter Team Name';
             }
         }
     </script>

@@ -39,6 +39,10 @@ img {
     /* pointer-events: none; */
 }
 
+.hidden-text {
+    display: none;
+}
+
 .imagePreview {
     position: absolute;
     top: 0;
@@ -113,14 +117,33 @@ img {
     padding: 0;
 }
 
-.close-button {
+.edit-button {
     position: absolute;
-    top: 1px;
-    right: 1px;
+    top: -5px;
+    right: 15px;
     cursor: pointer;
     border-radius: 50%;
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    /* background-color: #ff414d; */
+}
+
+.edit-button svg path {
+    fill: #136FFA;
+}
+
+.close-button {
+    position: absolute;
+    top: -6px;
+    right: -5px;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -136,21 +159,21 @@ img {
 
 .lock-button {
     position: absolute;
-    top: 1px;
-    right: 28px;
+    top: -6px;
+    left: 38px;
     cursor: pointer;
     border-radius: 50%;
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1;
-    background-color: #ff414d;
+    background-color: #343a40;
 }
 
 .lock-button svg path {
-    width: 25px;
+    width: 15px;
     height: auto;
     fill: #fff;
 }
@@ -210,15 +233,26 @@ img {
 }
 
 .dropzone {
+    width: 130px;
+    height: 650px;
     border: 2px dashed #ccc;
     border-radius: 10px;
     padding: 20px 20px;
     text-align: center;
     cursor: pointer;
+    position: relative;
 }
 
 .dropzone.highlight {
     border-color: #007bff;
+}
+
+.imageUploaderBtn {
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    top: -15px;
+    right: -15px;
 }
 
 .preview-container {
@@ -362,9 +396,32 @@ button[type="submit"]:hover {
 }
 
 .resizable-container-collection {
-    border: 2px dashed #cecece;
-    border-radius: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     padding: 10px;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 25px;
+}
+
+.resizable-container-collection {
+    overflow-y: scroll;
+
+    /* Enable scrolling */
+    ::-webkit-scrollbar {
+        /* Hide scrollbar for Chrome, Safari, Opera*/
+        display: none;
+    }
+
+    -ms-overflow-style: none;
+    /* Hide scrollbar for Internet Explorer, Edge */
+    scrollbar-width: none;
+    /* Hide scrollbar for Firefox */
 }
 
 .image-size:last-child {
@@ -373,8 +430,8 @@ button[type="submit"]:hover {
 
 .decreaseSizeBtn,
 .increaseSizeBtn {
-    width: 25px !important;
-    height: 25px !important;
+    width: 20px !important;
+    height: 20px !important;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex !important;
@@ -392,7 +449,7 @@ button[type="submit"]:hover {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    padding: 5px !important;
+    padding: 4px !important;
 }
 
 path {
@@ -677,6 +734,25 @@ path {
     text-align: center;
 }
 
+.imageContentInput {
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 1);
+    margin: 0;
+    background-color: rgba(0, 0, 0, .7);
+    border: none;
+    color: white;
+    position: absolute;
+    font-size: 12px;
+}
+
+.imageContentInput::placeholder {
+    color: white;
+    font-size: 12px;
+}
+
+.imageContentInput:focus {
+    outline: none;
+}
+
 /* 
 .NameJob::before {
     content: "";
@@ -699,6 +775,90 @@ path {
         display: block;
     }
   } */
+
+
+
+/* NEW STRUCTURE */
+
+.contentEditor {
+    width: 540px;
+    height: 540px;
+    position: absolute;
+    z-index: 1;
+    opacity: 1;
+    top: 75px;
+}
+
+.nameInput {
+    border: none;
+    background: transparent;
+    position: absolute;
+    font-size: 38px;
+    font-weight: 700;
+    color: black;
+    width: 227px;
+    top: 92px;
+    left: 309px;
+    text-align: center;
+    opacity: 1;
+    text-transform: uppercase;
+}
+
+.nameInput:focus {
+    outline: none;
+    border: none;
+}
+
+.nameInput::placeholder {
+    color: black;
+}
+
+
+.contentInputContainer {
+    width: 235px;
+    height: 150px;
+    position: absolute;
+    top: 200px;
+    right: 0;
+
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contentInput {
+    background: transparent;
+    border: none;
+    font-size: 21px;
+    font-weight: 600;
+    color: #e02c4a;
+    line-height: 28px;
+
+
+    overflow: hidden;
+
+    text-align: center;
+    width: 100%;
+    /* Fills the container width */
+    height: 100%;
+    /* Fills the container height */
+    resize: none;
+    /* Allows resizing the textarea */
+}
+
+.contentInput::placeholder {
+    font-size: 21px;
+    font-weight: 600;
+    color: #e02c4a;
+    line-height: 28px;
+}
+
+
+.contentInput:focus {
+    outline: none;
+}
+
 
 @media screen and (max-width: 576px) {
     img {
