@@ -1,23 +1,32 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
+* Browsers: last 4 version
+*/
+
 * {
-    font-family: Montserrat, sans-serif
+    font-family: Montserrat, sans-serif;
 }
 
 p {
-    position: absolute
+    position: absolute;
 }
 
 img {
     width: 540px;
     height: 540px;
     background-size: 540px 540px;
-    position: absolute
+    position: absolute;
 }
 
-.image-generator-container {
-    margin-top: 2rem;
-    width: 100vw;
-    display: flex;
-    justify-content: center;
+.guide {
+    pointer-events: none;
+    width: 540px;
+    height: 540px;
+    position: absolute;
+    opacity: 0.5;
+    background-size: 540px 540px;
 }
 
 .image-container {
@@ -26,11 +35,12 @@ img {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     position: relative;
-    overflow: hidden
+    overflow: hidden;
+    /* pointer-events: none; */
 }
 
 .hidden-text {
-    display: none
+    display: none;
 }
 
 .imagePreview {
@@ -41,24 +51,25 @@ img {
     height: 540px;
     display: flex;
     flex-wrap: wrap;
-    margin: 10px
+    margin: 10px;
 }
 
 .imagePreview img {
     width: 100%;
     height: auto;
     margin: 5px;
-    object-fit: cover
+    object-fit: cover;
+    /* Ensures images fit within dimensions */
 }
 
 .imageContainer {
     width: 100%;
     height: auto;
-    position: absolute
+    position: absolute;
 }
 
 .index-buttons {
-    display: flex
+    display: flex;
 }
 
 .index-buttons button {
@@ -83,7 +94,27 @@ img {
     align-items: center;
     border-radius: 50%;
     background-color: #ff414d;
-    border: none
+    border: none;
+}
+
+.resize-buttons {
+    position: absolute;
+    display: flex;
+    top: 5px;
+    left: 50%;
+    /* For horizontal button placement */
+}
+
+.resize-buttons button {
+    width: 25px;
+    height: 25px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    font-size: 16px;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 0;
 }
 
 .edit-button {
@@ -97,11 +128,12 @@ img {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1
+    z-index: 1;
+    /* background-color: #ff414d; */
 }
 
 .edit-button svg path {
-    fill: #136ffa
+    fill: #136FFA;
 }
 
 .close-button {
@@ -116,13 +148,13 @@ img {
     justify-content: center;
     align-items: center;
     z-index: 1;
-    background-color: #ff414d
+    background-color: #ff414d;
 }
 
 .close-button svg path {
     width: 25px;
     height: auto;
-    fill: #fff
+    fill: #fff;
 }
 
 .lock-button {
@@ -137,16 +169,17 @@ img {
     justify-content: center;
     align-items: center;
     z-index: 1;
-    background-color: #343a40
+    background-color: #343a40;
 }
 
 .lock-button svg path {
     width: 15px;
     height: auto;
-    fill: #fff
+    fill: #fff;
 }
 
 .nameInput {
+    /* height: 100px; */
     font-size: 38px;
     font-weight: 700;
     color: #042f45;
@@ -154,11 +187,11 @@ img {
     top: 92px;
     left: 309px;
     text-align: center;
-    text-transform: uppercase
+    text-transform: uppercase;
 }
 
 .nameInput:focus {
-    outline: 0
+    outline: none;
 }
 
 .dropzone {
@@ -169,11 +202,11 @@ img {
     padding: 20px 20px;
     text-align: center;
     cursor: pointer;
-    position: relative
+    position: relative;
 }
 
 .dropzone.highlight {
-    border-color: #007bff
+    border-color: #007bff;
 }
 
 .imageUploaderBtn {
@@ -181,7 +214,30 @@ img {
     height: 32px;
     position: absolute;
     top: -15px;
-    right: -15px
+    right: -15px;
+}
+
+.preview-container {
+    width: 100%;
+    height: 600px;
+}
+
+.preview {
+    width: 540px;
+    height: 540px;
+    max-width: 540px;
+    max-height: 540px;
+    margin-top: 20px;
+}
+
+.img-fluid {
+    max-width: 200% !important;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
 }
 
 .resizable-image {
@@ -189,46 +245,60 @@ img {
     height: auto;
     display: block;
     cursor: -webkit-grab;
-    cursor: grab
+    cursor: grab;
 }
 
 .resizable-image:active {
     cursor: -webkit-grabbing;
-    cursor: grabbing
+    cursor: grabbing;
 }
 
 #image-block {
     position: absolute;
     width: 300px;
-    height: 300px
+    height: 300px;
 }
 
 .downloadButton {
     width: 250px !important;
     height: 50px;
-    border-radius: 15px !important
+    border-radius: 15px !important;
 }
 
+
 input[type=text],
-textarea {
+textarea,
+select {
     border-radius: 15px !important;
-    opacity: .8
+    opacity: 0.8;
+}
+
+.form-select {
+    padding: 1rem 0.75rem !important;
+}
+
+
+.btn-outline-secondary {
+    font-weight: 600 !important;
+    border-radius: 50px !important;
+    border-color: #0000002f;
+    font-size: 14px;
 }
 
 .btn-check:checked+.btn {
     border-color: #ff414d !important;
-    background-color: #ff414d !important
+    background-color: #ff414d !important;
 }
 
-button[type=submit] {
+button[type="submit"] {
     background: #ff414d;
     border-radius: 50px;
     -webkit-box-shadow: #ff414d 0 10px 20px -10px;
     box-shadow: #ff414d 0 10px 20px -10px;
-    font-family: Montserrat, sans-serif;
+    font-family: "Montserrat", sans-serif;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    color: #fff;
+    color: #FFFFFF;
     cursor: pointer;
     font-size: 14px;
     font-weight: 600;
@@ -239,39 +309,39 @@ button[type=submit] {
     -webkit-user-select: none;
     -ms-touch-action: manipulation;
     touch-action: manipulation;
-    border: 0
+    border: 0;
 }
 
-button[type=submit]:hover {
-    background: #b12b34
+button[type="submit"]:hover {
+    background: #b12b34;
 }
 
 .image-size {
     border: 1px solid #ced4da;
     border-radius: 15px;
-    padding: 2rem .75rem .75rem 1rem;
-    cursor: grab
+    padding: 2rem 0.75rem 0.75rem 1rem;
+    cursor: grab;
 }
 
 .image-size.dragging {
-    opacity: .6
+    opacity: 0.6;
 }
 
-.image-size.dragging :where(.image-size>*) {
-    opacity: 0
+.image-size.dragging :where(.image-size > *) {
+    opacity: 0;
 }
 
 .image-size:hover {
-    cursor: grabbing
+    cursor: grabbing;
 }
 
 .image-name {
     position: absolute;
-    bottom: 0;
+    bottom: 0px;
     left: 50%;
     font-size: 9px;
     text-transform: uppercase;
-    transform: translateX(-50%)
+    transform: translateX(-50%);
 }
 
 .imageName {
@@ -284,7 +354,7 @@ button[type=submit]:hover {
     font-size: 12px;
     font-weight: 600;
     top: 5px;
-    left: 5px
+    left: 5px;
 }
 
 .resizable-container-collection {
@@ -298,11 +368,26 @@ button[type=submit]:hover {
     justify-content: flex-start;
     flex-direction: column;
     align-items: center;
-    padding-top: 25px
+    padding-top: 25px;
 }
 
-::-webkit-scrollbar {
-    display: none
+.resizable-container-collection {
+    overflow-y: scroll;
+
+    /* Enable scrolling */
+    ::-webkit-scrollbar {
+        /* Hide scrollbar for Chrome, Safari, Opera*/
+        display: none;
+    }
+
+    -ms-overflow-style: none;
+    /* Hide scrollbar for Internet Explorer, Edge */
+    scrollbar-width: none;
+    /* Hide scrollbar for Firefox */
+}
+
+.image-size:last-child {
+    margin-bottom: 0 !important;
 }
 
 .decreaseSizeBtn,
@@ -326,11 +411,11 @@ button[type=submit]:hover {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    padding: 4px !important
+    padding: 4px !important;
 }
 
 path {
-    fill: #fff
+    fill: white;
 }
 
 .copy1-container {
@@ -338,16 +423,16 @@ path {
     position: absolute;
     top: 48px;
     display: flex;
-    justify-content: center
+    justify-content: center;
 }
 
 .copy1 {
     font-weight: 600;
     font-size: 21px;
     color: #042f45;
-    letter-spacing: -.6px;
+    letter-spacing: -0.6px;
     position: relative;
-    top: 23px
+    top: 23px;
 }
 
 .copy2-container {
@@ -357,7 +442,7 @@ path {
     top: 141px;
     left: 0;
     display: flex;
-    justify-content: center
+    justify-content: center;
 }
 
 .copy2 {
@@ -365,24 +450,95 @@ path {
     font-weight: 600;
     color: #e02c4a;
     text-align: center;
-    width: 100%
+    width: 100%;
 }
 
 .copies-container {
     width: 235px;
     height: 100%;
+    /* background-color: green; */
     position: absolute;
-    right: 0
+    right: 0;
+}
+
+.logo-text {
+    font-size: 21px;
+    font-weight: 600;
+    color: #e02c4a;
+    text-align: center;
+    width: 100%;
+}
+
+.logo-container {
+    width: 100%;
+    height: 30px;
+    position: absolute;
+    top: 173px;
+    display: flex;
+    justify-content: center;
+}
+
+.wideoutlogo {
+    width: 192.5px;
+    height: 22px;
 }
 
 .headline {
     width: 100%;
     height: 150px;
+    /* background-color: green; */
     position: absolute;
     top: 200px;
     display: flex;
     align-items: center;
-    justify-content: center
+    justify-content: center;
+}
+
+.divider-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top: 3px;
+}
+
+.divider {
+    width: 192.5px;
+    height: 11px;
+}
+
+.ten-xing-container {
+    position: absolute;
+    width: 100%;
+    top: 12px;
+    display: flex;
+    justify-content: center;
+}
+
+.ten-xing {
+    font-size: 47.5px;
+    font-weight: 800;
+    color: #e02c4a;
+    /* position: absolute;
+    top: 12px;
+    left: 33px; */
+    letter-spacing: -1px;
+}
+
+.today-container {
+    width: 100%;
+    height: 24px;
+    position: absolute;
+    top: 133px;
+    display: flex;
+    justify-content: center;
+
+}
+
+.today {
+    font-size: 15px;
+    font-weight: 800;
+    color: #19a4b6;
 }
 
 .bottom {
@@ -392,8 +548,9 @@ path {
     display: flex;
     justify-content: center;
     flex-direction: column;
-    align-items: center
+    align-items: center;
 }
+
 
 .custom-btn {
     width: 200px;
@@ -402,18 +559,21 @@ path {
     background-image: -o-linear-gradient(bottom, #19a4b6, #2cd9ef);
     background-image: linear-gradient(360deg, #19a4b6, #2cd9ef);
     border: none;
+    /* position: absolute;
+    left: 25px;
+    top: 355px; */
     border-radius: 36px;
     opacity: 1;
     display: flex;
     justify-content: center;
     position: relative;
-    left: 13px
+    left: 13px;
 }
 
 .custom-btn-text {
     font-weight: 600;
     font-size: 16px;
-    color: #fff
+    color: #FFFFFF;
 }
 
 .footnote-container {
@@ -422,7 +582,7 @@ path {
     justify-content: center;
     position: relative;
     top: 26px;
-    left: 22px
+    left: 22px;
 }
 
 .footnote {
@@ -432,40 +592,40 @@ path {
     justify-content: center;
     align-items: center;
     display: flex;
-    gap: 5px
+    gap: 5px;
 }
 
 .template-container {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    align-items: center
+    align-items: center;
 }
 
 .template-image {
     width: 80px;
     height: 80px;
     box-sizing: border-box;
-    box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, .75);
-    -webkit-box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, .75);
-    -moz-box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, .75);
+    box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.75);
     border: 1px solid #cecece;
-    cursor: pointer
+    cursor: pointer;
 }
 
 .template-image img {
     width: 80px;
-    height: 80px
+    height: 80px;
 }
 
 .template-image:hover {
-    background: #cecece
+    background: #cecece;
 }
 
 .headline-img {
     position: absolute;
     top: -210px;
-    left: -305px
+    left: -305px;
 }
 
 .headline-text {
@@ -473,26 +633,44 @@ path {
     font-weight: 600;
     color: #e02c4a;
     word-break: break-word;
-    padding: 5px 20px 0 20px;
+    padding: 5px 20px 0px 20px;
     overflow: hidden;
     line-height: 28px;
     margin-bottom: 0;
-    text-align: center
+    text-align: center;
 }
 
 .headline-text:focus {
-    outline: 0
+    outline: none;
 }
 
 [contenteditable=true]:empty:before {
+    /* Set the content of the pseudo-element to the placeholder text */
     content: attr(placeholder);
+
+    /* Prevent clicks or selections on the placeholder */
     pointer-events: none;
-    display: block
+
+    /* Ensure proper display across browsers */
+    display: block;
+}
+
+.tenX {
+    font-size: 1rem;
+}
+
+.lowercase {
+    text-transform: lowercase;
+}
+
+.headlineInput {
+    height: 140px !important;
+    resize: none;
 }
 
 .footnote span {
     color: #e02c4a;
-    font-size: 30px
+    font-size: 30px;
 }
 
 .ofcourse {
@@ -500,7 +678,7 @@ path {
     top: -15px;
     color: #042f45;
     font-weight: 800;
-    font-size: 15px
+    font-size: 15px;
 }
 
 #fix-small {
@@ -510,7 +688,7 @@ path {
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    width: 100%
+    width: 100%;
 }
 
 .textArea-NameAndJob {
@@ -518,32 +696,36 @@ path {
     border: 1px solid #cecece;
     border-radius: 6px !important;
     padding: 5px;
-    font-size: 14px
+    font-size: 14px;
 }
 
 .NameJob {
     font-size: 12px;
-    color: #fff;
+    color: white;
     position: absolute;
     word-wrap: break-word;
     white-space: pre-wrap;
     text-shadow: 1px 1px 5px rgba(0, 0, 0, 1);
     margin: 0;
     background-color: rgba(0, 0, 0, .7);
-    text-align: center
+    text-align: center;
 }
 
-@media (max-width: 575.98px) {
-    .dropzone {
-        display: none;
-    }
+.imageContentInput {
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 1);
+    margin: 0;
+    background-color: rgba(0, 0, 0, .7);
+    border: none;
+    color: white;
+    position: absolute;
+    font-size: 12px;
 }
 
-/* // Small devices (landscape phones, less than 768px) */
-@media (max-width: 767.98px) {}
+.imageContentInput::placeholder {
+    color: white;
+    font-size: 12px;
+}
 
-/* // Medium devices (tablets, less than 992px) */
-@media (max-width: 991.98px) {}
-
-/* // Large devices (desktops, less than 1200px) */
-@media (max-width: 1199.98px) {}
+.imageContentInput:focus {
+    outline: none;
+}
