@@ -169,7 +169,11 @@
                                         element.style.top = '7px';
                                         break;
                                     case 'padding':
-                                        element.style.padding = '35px 20px 0px 20px';
+                                        if (isMobile()) {
+                                            element.style.padding = '17px 10px 0px 10px';
+                                        } else {
+                                            element.style.padding = '35px 20px 0px 20px';
+                                        }
                                         break;
                                     case 'downward3':
                                         const getCurrentPositionTop = element.style.top;
@@ -632,16 +636,17 @@
                 }
             });
 
-            // Function to check if it's a mobile device (add your preferred logic)
-            function isMobile() {
-                // You can replace this with your preferred method to detect mobile devices
-                // Here's an example using navigator.userAgent
-                return /^(?:Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile)$/i.test(navigator.userAgent);
-            }
-
             return toggleButton;
 
         }
+
+        // Function to check if it's a mobile device (add your preferred logic)
+        function isMobile() {
+            // You can replace this with your preferred method to detect mobile devices
+            // Here's an example using navigator.userAgent
+            return /^(?:Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile)$/i.test(navigator.userAgent);
+        }
+
 
         function createResizeButton(imgContainer, currentWidth, maxWidth) {
             const resizeButtons = document.createElement('div');
