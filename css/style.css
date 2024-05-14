@@ -533,7 +533,23 @@ path {
     text-align: center
 }
 
+#imageUploaderBtn2 {
+    display: none;
+}
+
 @media (max-width: 575.98px) {
+    #imageUploaderBtn2 {
+        display: block;
+    }
+
+    .imageUploaderBtn {
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
     .dropzone {
         display: none;
     }
