@@ -596,7 +596,6 @@
         }
 
         function createResizeButton(imgContainer, currentWidth, maxWidth) {
-
             const resizeButtons = document.createElement('div');
 
             resizeButtons.classList.add('d-flex', 'align-items-center');
@@ -623,16 +622,42 @@
                 }
             });
 
-
             const increaseButton = document.createElement('button');
             increaseButton.classList.add('btn', 'btn-success', 'rounded-circle', 'increaseSizeBtn');
             increaseButton.id = 'increaseSizeBtn';
-            increaseButton.innerHTML = createIncreaseIcon();
+            increaseButton.innerHTML = createIncreaseIcon(); // Assuming createDecreaseIcon creates a decrease icon, you might want to use createIncreaseIcon here
             increaseButton.addEventListener('click', function () {
                 if (currentWidth < maxWidth) {
-                    currentWidth += 10; // Adjust increment value for resizing
+                    currentWidth += 10;
                     imgContainer.style.width = currentWidth + '%';
                     span.textContent = currentWidth + '%';
+                }
+            });
+
+            // Add touch event listeners for mobile zoom
+            let initialDistance = 0;
+            imgContainer.addEventListener('touchstart', function (event) {
+                if (event.touches.length === 2) {
+                    initialDistance = Math.hypot(event.touches[0].pageX - event.touches[1].pageX);
+                    event.preventDefault(); // Prevent default touch behavior
+                }
+            });
+
+            imgContainer.addEventListener('touchmove', function (event) {
+                if (event.touches.length === 2) {
+                    const newDistance = Math.hypot(event.touches[0].pageX - event.touches[1].pageX);
+                    const zoomFactor = newDistance / initialDistance;
+
+                    // Adjust currentWidth based on zoom factor
+                    currentWidth *= zoomFactor;
+
+                    // Enforce minimum and maximum width
+                    currentWidth = Math.max(50, Math.min(currentWidth, maxWidth));
+
+                    imgContainer.style.width = currentWidth + '%';
+                    span.textContent = currentWidth + '%';
+
+                    initialDistance = newDistance; // Update for next touchmove
                 }
             });
 
@@ -642,6 +667,7 @@
 
             return resizeButtons;
         }
+
 
         function createDecreaseIcon() {
             return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
