@@ -228,11 +228,11 @@
         const imagePreview = document.getElementById('imagePreview');
         const resizeCollection = document.getElementById('resizable-container-collection');
 
-        uploadedImageBtn.addEventListener('click', (e) => {
+        uploadedImageBtn.addEventListener('touchstart', (e) => {
             uploadedImage.click();
             uploadedImage.dispatchEvent(new Event('click'));
         });
-        uploadedImageBtn2.addEventListener('click', (e) => {
+        uploadedImageBtn2.addEventListener('touchstart', (e) => {
             uploadedImage.click();
             uploadedImage.dispatchEvent(new Event('click'));
         });
