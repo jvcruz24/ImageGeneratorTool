@@ -21,7 +21,7 @@
             <div class="dropzone" id="dropzone">
                 <!-- <span>Drag & Drop Image here or Click + to upload</span> -->
                 <img src="plus.svg" alt="add Icon" id='imageUploaderBtn' class='imageUploaderBtn'>
-                <input type="file" id="imageUploader" style="display: none;" accept="image/*" multiple>
+                <input type="file" id="imageUploader" accept="image/*" multiple>
                 <div id='resizable-container-collection' class='resizable-container-collection'>
                 </div>
             </div>
@@ -228,11 +228,11 @@
         const imagePreview = document.getElementById('imagePreview');
         const resizeCollection = document.getElementById('resizable-container-collection');
 
-        uploadedImageBtn.addEventListener('touchstart', (e) => {
+        uploadedImageBtn.addEventListener('click', (e) => {
             uploadedImage.click();
             uploadedImage.dispatchEvent(new Event('click'));
         });
-        uploadedImageBtn2.addEventListener('touchstart', (e) => {
+        uploadedImageBtn2.addEventListener('click', (e) => {
             uploadedImage.click();
             uploadedImage.dispatchEvent(new Event('click'));
         });
