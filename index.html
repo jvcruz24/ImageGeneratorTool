@@ -224,15 +224,10 @@
         const dropzone = document.getElementById('dropzone');
         const uploadedImage = document.getElementById('imageUploader');
         const uploadedImageBtn = document.getElementById('imageUploaderBtn');
-        const uploadedImageBtn2 = document.getElementById('imageUploaderBtn2');
         const imagePreview = document.getElementById('imagePreview');
         const resizeCollection = document.getElementById('resizable-container-collection');
 
         uploadedImageBtn.addEventListener('click', (e) => {
-            uploadedImage.click();
-            uploadedImage.dispatchEvent(new Event('click'));
-        });
-        uploadedImageBtn2.addEventListener('click', (e) => {
             uploadedImage.click();
             uploadedImage.dispatchEvent(new Event('click'));
         });
