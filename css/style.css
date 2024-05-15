@@ -554,10 +554,6 @@ input[type="file"] {
         right: 0;
     }
 
-    .dropzone {
-        display: none;
-    }
-
     input[type="file"] {
         display: block;
     }
