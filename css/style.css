@@ -550,9 +550,9 @@ path {
         right: 0;
     }
 
-    /* .dropzone {
+    .dropzone {
         display: none;
-    } */
+    }
 
     .form-check-label {
         font-size: 12px;

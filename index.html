@@ -21,7 +21,6 @@
             <div class="dropzone" id="dropzone">
                 <!-- <span>Drag & Drop Image here or Click + to upload</span> -->
                 <img src="plus.svg" alt="add Icon" id='imageUploaderBtn' class='imageUploaderBtn'>
-                <input type="file" id="imageUploader" accept="image/*" multiple>
                 <div id='resizable-container-collection' class='resizable-container-collection'>
                 </div>
             </div>
@@ -48,7 +47,10 @@
                             They
                         </label>
                     </div>
-                    <img src="addImageIcon.svg" alt="add Icon" id='imageUploaderBtn2' class='imageUploaderBtn'>
+                    <label for="imageUploader" class="custom-file-upload">
+                        <img src="addImageIcon.svg" alt="add Icon" id='imageUploaderBtn2' class='imageUploaderBtn'>
+                    </label>
+                    <input type="file" id="imageUploader" accept="image/*" multiple style='display: none;'>
                 </div>
                 <div class="image-container mb-3" id="imageContainer">
                     <img src="https://raw.githubusercontent.com/jvcruz24/ImageGeneratorTool/main/background.jpg"
