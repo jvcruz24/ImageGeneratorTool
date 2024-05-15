@@ -537,6 +537,10 @@ path {
     display: none;
 }
 
+input[type="file"] {
+    display: none;
+}
+
 @media (max-width: 575.98px) {
     #imageUploaderBtn2 {
         display: block;
@@ -552,6 +556,10 @@ path {
 
     .dropzone {
         display: none;
+    }
+
+    input[type="file"] {
+        display: block;
     }
 
     .form-check-label {
