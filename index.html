@@ -87,7 +87,7 @@
                     top: -11px;
                     position: absolute;'>*Note : Lock the image to edit text freely.</p>
                 </div>
-                <div class="d-sm-flex justify-content-between align-items-center">
+                <div class="d-lg-flex justify-content-between align-items-center">
                     <div>
                         <div>
                             <!-- <a href="https://www.remove.bg/upload" target='_blank'>Remove BG here.</a> -->
@@ -336,6 +336,10 @@
                         if (elmnt.tagName === 'P') {
                             elmnt.focus();
                         }
+                    })
+                    .on('dblclick', function (event) {
+                        getZindex = Number(elmnt.style.zIndex);
+                        elmnt.style.zIndex = getZindex + 1;
                     })
                     .draggable({
                         listeners: {
