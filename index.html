@@ -121,6 +121,13 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         const textContainer = document.getElementById('contentInputContainer');
+        // Function to check if it's a mobile device (add your preferred logic)
+        function isMobile() {
+            // You can replace this with your preferred method to detect mobile devices
+            // Here's an example using navigator.userAgent
+            return /^(?:Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile)$/i.test(navigator.userAgent);
+        }
+
         document.addEventListener('DOMContentLoaded', function () {
             const paragraph = document.getElementById("nameInput");
             paragraph.addEventListener("input", () => {
@@ -180,7 +187,8 @@
                                         const getCurrentPositionLeft = element.style.left;
                                         const numberValueTop = parseFloat(getCurrentPositionTop.replace("px", ""));
                                         const numberValueLeft = parseFloat(getCurrentPositionLeft.replace("px", ""));
-                                        element.style.top = numberValueTop + 10 + 'px';
+                                        const getTransform = element.style.transform;
+                                        element.style.top = '11px';
                                         element.style.backgroundColor = 'transparent';
                                         const id = element.id;
                                         const newElement = document.createElement('span');
@@ -188,7 +196,7 @@
                                         newElement.style.height = element.offsetHeight + 'px';
                                         newElement.style.backgroundColor = "rgba(0, 0, 0, .7)";
                                         newElement.style.position = "absolute";
-                                        newElement.style.top = numberValueTop + 'px';
+                                        newElement.style.transform = getTransform;
                                         newElement.style.left = numberValueLeft + 'px';
                                         console.log(element.parentNode);
                                         // Insert the newElement before the existingElement
@@ -293,12 +301,7 @@
                     p.setAttribute('contenteditable', true);
                     p.setAttribute('placeholder', 'Enter Name & Role here...');
                     p.id = "cred" + i;
-                    p.addEventListener('click', function () {
-                        dragImage(p, false);
-                    });
-                    p.addEventListener('focusout', function () {
-                        dragImage(p, true);
-                    });
+
                     imgContainer.appendChild(p);
                     // Add Drag Functionality:
                     dragImage(p, true);
@@ -320,84 +323,40 @@
 
 
         function dragImage(elmnt, enable) {
-            console.log(elmnt.tagName);
+            console.log(elmnt);
+            let position = { x: 0, y: 0 };
+            let isDraggingPaused = false;
+            if (enable) {
+                interact(elmnt)
+                    .on('down mousedown', function (event) {
+                        event.preventDefault();
+                    })
+                    .on('tap', function (event) {
+                        console.log("onTap:", event);
+                        if (elmnt.tagName === 'P') {
+                            elmnt.focus();
+                        }
+                    })
+                    .draggable({
+                        listeners: {
+                            move(event) {
+                                if (isDraggingPaused) {
+                                    event.preventDefault();
+                                    return;
+                                }
+                                console.log("event.dy:", event.dy); // Check if dy is updating
+                                position.x += event.dx;
+                                position.y += event.dy;
 
-            var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-
-            if (document.getElementById(elmnt.id + "header")) {
-                // if present, the header is where you move the DIV from:
-                if (enable) {
-                    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
-                } else {
-                    document.getElementById(elmnt.id + "header").onmousedown = null;
-                }
+                                event.target.style.transform = `translate(${position.x}px, ${position.y}px)`;
+                            },
+                        },
+                    });
             } else {
-                // otherwise, move the DIV from anywhere inside the DIV:
-                if (enable) {
-                    elmnt.onmousedown = dragMouseDown;
-                } else {
-                    elmnt.onmousedown = null;
-                }
+                interact(elmnt).unset();
             }
-
-            function dragMouseDown(e) {
-                e = e || window.event;
-                e.preventDefault();
-                // get the mouse cursor position at startup:
-                pos3 = e.clientX;
-                pos4 = e.clientY;
-                document.onmouseup = closeDragImage;
-                // call a function whenever the cursor moves:
-                document.onmousemove = imageDrag;
-            }
-
-            function imageDrag(e) {
-                e = e || window.event;
-                e.preventDefault();
-                // calculate the new cursor position:
-                pos1 = pos3 - e.clientX;
-                pos2 = pos4 - e.clientY;
-                pos3 = e.clientX;
-                pos4 = e.clientY;
-                // set the element's new position:
-                elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-                elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-            }
-
-            function closeDragImage() {
-                // stop moving when mouse button is released:
-                document.onmouseup = null;
-                document.onmousemove = null;
-            }
-
-
         }
 
-        function dragImageMobile(element, enable) {
-            let initialX, initialY;
-
-            element.addEventListener('touchstart', (event) => {
-                initialX = event.touches[0].clientX;
-                initialY = event.touches[0].clientY;
-            });
-
-            element.addEventListener('touchmove', (event) => {
-                event.preventDefault(); // Prevent default scrolling behavior
-
-                const currentX = event.touches[0].clientX;
-                const currentY = event.touches[0].clientY;
-
-                const deltaX = currentX - initialX;
-                const deltaY = currentY - initialY;
-
-                // Update element position using translate
-                element.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
-
-                // Update initial positions for subsequent moves
-                initialX = currentX;
-                initialY = currentY;
-            });
-        }
 
         let draggedIndex;
         let isDragging = false;
@@ -407,11 +366,6 @@
             imageSizerContainer.draggable = true;
             imageSizerContainer.addEventListener('dragstart', dragStart);
             imageSizerContainer.addEventListener('dragend', dragEnd);
-            // imageSizerContainer.addEventListener('touchstart', dragStart);
-            // imageSizerContainer.addEventListener('touchend', dragEnd);
-            imageSizerContainer.addEventListener('touchmove', function (event) {
-                event.preventDefault();
-            });
             imageSizerContainer.style.width = '100px';
             imageSizerContainer.style.height = '100px';
             imageSizerContainer.style.backgroundColor = '#D9D9D9';
@@ -619,13 +573,7 @@
             // Initially set the icon to unlock
             let isLocked = true;
             toggleButton.innerHTML = createUnlockIcon();
-            console.log(isMobile());
-            if (isMobile()) {
-                dragImageMobile(imgContainer, isLocked);
-            } else {
-                dragImage(imgContainer, isLocked);
-
-            }
+            dragImage(imgContainer, isLocked);
             toggleButton.addEventListener('click', function () {
                 isLocked = !isLocked; // Toggle lock state on each click
 
@@ -641,14 +589,6 @@
             return toggleButton;
 
         }
-
-        // Function to check if it's a mobile device (add your preferred logic)
-        function isMobile() {
-            // You can replace this with your preferred method to detect mobile devices
-            // Here's an example using navigator.userAgent
-            return /^(?:Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile)$/i.test(navigator.userAgent);
-        }
-
 
         function createResizeButton(imgContainer, currentWidth, maxWidth) {
             const resizeButtons = document.createElement('div');
@@ -694,7 +634,7 @@
             imgContainer.addEventListener('touchstart', function (event) {
                 if (event.touches.length === 2) {
                     initialDistance = Math.hypot(event.touches[0].pageX - event.touches[1].pageX);
-                    event.preventDefault(); // Prevent default touch behavior
+                    // event.preventDefault(); // Prevent default touch behavior
                 }
             });
 

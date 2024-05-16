@@ -41,7 +41,8 @@ img {
     height: 540px;
     display: flex;
     flex-wrap: wrap;
-    margin: 10px
+    margin: 10px;
+    touch-action: none;
 }
 
 .imagePreview img {
@@ -133,7 +134,7 @@ img {
     border-radius: 50%;
     width: 20px;
     height: 20px;
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
     z-index: 1;

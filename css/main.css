@@ -52,6 +52,7 @@ img {
     display: flex;
     flex-wrap: wrap;
     margin: 10px;
+    touch-action: none;
 }
 
 .imagePreview img {
