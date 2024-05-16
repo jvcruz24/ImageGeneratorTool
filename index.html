@@ -326,10 +326,24 @@
             console.log(elmnt);
             let position = { x: 0, y: 0 };
             let isDraggingPaused = false;
+            let holdTimer;
             if (enable) {
                 interact(elmnt)
                     .on('down mousedown', function (event) {
                         event.preventDefault();
+
+                    })
+                    .on("touchstart", function (event) {
+                        // Start a timer on mousedown/down event
+                        holdTimer = setTimeout(function () {
+                            console.log("Long press!");
+                            // Add your long press functionality here (e.g., increase z-index)
+                            elmnt.style.zIndex = Number(elmnt.style.zIndex) + 1;
+                        }, 2000); // Adjust timeout for desired hold duration (in milliseconds)
+                    })
+                    // Clear the timer on mouseup/end event to prevent accidental triggers
+                    .on('touchend', function () {
+                        clearTimeout(holdTimer);
                     })
                     .on('tap', function (event) {
                         console.log("onTap:", event);
@@ -337,10 +351,10 @@
                             elmnt.focus();
                         }
                     })
-                    .on('dblclick', function (event) {
-                        getZindex = Number(elmnt.style.zIndex);
-                        elmnt.style.zIndex = getZindex + 1;
-                    })
+                    // .on('dblclick', function (event) {
+                    //     getZindex = Number(elmnt.style.zIndex);
+                    //     elmnt.style.zIndex = getZindex + 1;
+                    // })
                     .draggable({
                         listeners: {
                             move(event) {
