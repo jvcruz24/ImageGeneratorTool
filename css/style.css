@@ -542,7 +542,7 @@ input[type="file"] {
     display: none;
 }
 
-@media (max-width: 991.98px) {
+@media (max-width: 575.98px) {
     #imageUploaderBtn2 {
         display: block;
     }
@@ -667,6 +667,21 @@ input[type="file"] {
 
     a {
         font-size: 8px;
+    }
+
+    .NameJob {
+        font-size: 8px;
+    }
+
+}
+
+@media (max-width: 991.98px) {
+    .dropzone {
+        display: none;
+    }
+
+    input[type="file"] {
+        display: block;
     }
 
 }
