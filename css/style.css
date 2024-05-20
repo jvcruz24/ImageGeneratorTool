@@ -543,6 +543,10 @@ input[type="file"] {
 }
 
 @media (max-width: 575.98px) {
+    .notes {
+        display: none;
+    }
+
     #imageUploaderBtn2 {
         display: block;
     }
